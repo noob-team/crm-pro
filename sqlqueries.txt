@@ -1,0 +1,10 @@
+ADMIN_TABLE
+
+CREATE TABLE `crm`.`admintable` ( `adminid` INT NOT NULL , `admintype` VARCHAR(50) NOT NULL , `adminname` VARCHAR(100) NOT NULL , `adminpass` VARCHAR(100) NOT NULL , PRIMARY KEY (`adminid`)) ENGINE = InnoDB;
+
+ALTER TABLE `admintable` CHANGE `adminid` `adminid` INT(11) NOT NULL AUTO_INCREMENT;
+
+INSERT INTO `admintable` (`adminid`, `admintype`, `adminname`, `adminpass`) VALUES (NULL, 'Adminstrator', 'admin', 'admin');
+
+
+

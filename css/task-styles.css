@@ -1,0 +1,44 @@
+#modal .btn:hover, .btn-floating:hover {
+    opacity: 0.8;
+}
+
+table i {
+    margin-right: 10px;
+}
+
+table i:hover {
+    cursor: pointer;
+}
+
+table i.fa-edit {
+    color: #00796b;
+}
+
+.fa-trash {
+    color: red;
+}
+
+.fa-trash:hover {
+    cursor: pointer;
+}
+
+.fa-check:hover {
+    cursor: pointer;
+}
+
+table i.fa-check {
+    color: lightblue;
+}
+
+#act-on-multiple-select {
+    margin: 20px 0;
+}
+
+#delete-selected {
+    display: none;
+    width: 100px;
+}
+
+#completed-selected {
+    display: none;
+}

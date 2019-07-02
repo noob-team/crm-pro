@@ -4,9 +4,9 @@
     $user = "root";
     $pass = "";
     $database = "crm";
-    $db = mysqli_connect($servername, $user, $pass, $database);
-    if(!$db){
-        die("Connection Failed");
+    $db = new mysqli($servername, $user, $pass, $database);
+    if($db->connect_error){
+        die("Connection Failed".$db->connect_error);
     }
     else{
         $name = $_POST["name"];
@@ -32,7 +32,7 @@
           
             else {
               $query = "SELECT * FROM admintable WHERE adminname='$username' AND adminpass='$password' AND admintype='$admintype'";
-              $results = mysqli_query($db, $query);    
+              $results = mysqli_query($db, $query); 
               if (mysqli_num_rows($results) == 1) {
                 $successs=$username;
                 $arr = array(

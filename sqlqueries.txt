@@ -6,5 +6,75 @@ ALTER TABLE `admintable` CHANGE `adminid` `adminid` INT(11) NOT NULL AUTO_INCREM
 
 INSERT INTO `admintable` (`adminid`, `admintype`, `adminname`, `adminpass`) VALUES (NULL, 'Adminstrator', 'admin', 'admin');
 
+----------------------------------------------------------------------------------------------------------------------------------------------
 
+Users
+------
+
+TEAM_TABLE
+
+CREATE TABLE `crm`.`teamtable` ( `teamid` INT NOT NULL AUTO_INCREMENT , `teamname` VARCHAR(50) NOT NULL , PRIMARY KEY (`teamid`)) ENGINE = InnoDB;
+
+INSERT INTO `teamtable` (`teamid`, `teamname`) VALUES (NULL, 'Sales Department')
+INSERT INTO `teamtable` (`teamid`, `teamname`) VALUES (NULL, 'Service');
+INSERT INTO `teamtable` (`teamid`, `teamname`) VALUES (NULL, 'Support');
+
+--------------------------------------------------------------------------
+
+ROLES_Table
+
+CREATE TABLE `crm`.`roletable` ( `roleid` INT NOT NULL AUTO_INCREMENT , `rolename` VARCHAR(50) NOT NULL , `teamid` INT NOT NULL , PRIMARY KEY (`roleid`)) ENGINE = InnoDB;
+
+ALTER TABLE `roletable` ADD CONSTRAINT `teamidfk` FOREIGN KEY (`teamid`) REFERENCES `teamtable`(`teamid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+INSERT INTO `roletable` (`roleid`, `rolename`, `teamid`) VALUES (NULL, 'Sales', '1');
+INSERT INTO `roletable` (`roleid`, `rolename`, `teamid`) VALUES (NULL, 'Sales Manager', '1');
+INSERT INTO `roletable` (`roleid`, `rolename`, `teamid`) VALUES (NULL, 'Support', '3');
+INSERT INTO `roletable` (`roleid`, `rolename`, `teamid`) VALUES (NULL, 'Support Manager', '3');
+
+--------------------------------------------------------------------------
+
+USER_TABLE
+
+CREATE TABLE `crm`.`usertable` ( `useremail` VARCHAR(50) NOT NULL , `username` VARCHAR(50) NOT NULL , `userphone` BIGINT NOT NULL , `usergender` VARCHAR(10) NOT NULL , `userpassword` VARCHAR(20) NOT NULL , PRIMARY KEY (`useremail`)) ENGINE = InnoDB;
+
+INSERT INTO `usertable` (`useremail`, `username`, `userphone`, `usergender`, `userpassword`) VALUES ('rahul@gmail.com', 'rahul', '9483913464', 'Male', 'rahul')
+
+
+--------------------------------------------------------------------------
+
+USER_TEAM_TABLE
+
+CREATE TABLE `crm`.`userteamtable` ( `useremail` VARCHAR(50) NOT NULL , `teamid` INT NOT NULL ) ENGINE = InnoDB;
+
+ALTER TABLE `userteamtable` ADD CONSTRAINT `utfkteamid` FOREIGN KEY (`teamid`) REFERENCES `teamtable`(`teamid`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `userteamtable` ADD CONSTRAINT `utfkuseremail` FOREIGN KEY (`useremail`) REFERENCES `usertable`(`useremail`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+INSERT INTO `userteamtable` (`useremail`, `teamid`) VALUES ('rahul@gmail.com', '1')
+
+
+--------------------------------------------------------------------------
+
+USER_ROLE_TABLE
+
+CREATE TABLE `crm`.`usertoletable` ( `useremail` VARCHAR(50) NOT NULL , `roleid` INT NOT NULL ) ENGINE = InnoDB;
+
+ALTER TABLE `usertoletable` ADD CONSTRAINT `fkroleiduser` FOREIGN KEY (`roleid`) REFERENCES `roletable`(`roleid`) ON DELETE CASCADE ON UPDATE CASCADE; ALTER TABLE `usertoletable` ADD CONSTRAINT `fkuseremail` FOREIGN KEY (`useremail`) REFERENCES `usertable`(`useremail`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+INSERT INTO `usertoletable` (`useremail`, `roleid`) VALUES ('rahul@gmail.com', '2')
+
+--------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Tasks
+
+TASK_TABLE
+
+CREATE TABLE `crm`.`tasktable` ( `taskid` INT NOT NULL AUTO_INCREMENT , `taskname` VARCHAR(250) NOT NULL , `taskparent` VARCHAR(20) NOT NULL , `tasktarget` VARCHAR(100) NOT NULL , `taskstartdate` DATE NOT NULL , `taskstarttime` TIME NOT NULL , `taskenddate` DATE NOT NULL , `taskendtime` TIME NOT NULL , `taskstatus` VARCHAR(50) NOT NULL , `taskpriority` VARCHAR(50) NOT NULL , `taskdescription` VARCHAR(350) NOT NULL , `taskuseremail` VARCHAR(50) NOT NULL , PRIMARY KEY (`taskid`)) ENGINE = InnoDB;
+
+ALTER TABLE `tasktable` ADD CONSTRAINT `taskuserfk` FOREIGN KEY (`taskuseremail`) REFERENCES `usertable`(`useremail`) ON DELETE CASCADE ON UPDATE CASCADE;
 

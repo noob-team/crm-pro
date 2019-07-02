@@ -22,14 +22,6 @@ table i.fa-edit {
     cursor: pointer;
 }
 
-.fa-check:hover {
-    cursor: pointer;
-}
-
-table i.fa-check {
-    color: lightblue;
-}
-
 #act-on-multiple-select {
     margin: 20px 0;
 }
@@ -37,8 +29,4 @@ table i.fa-check {
 #delete-selected {
     display: none;
     width: 100px;
-}
-
-#completed-selected {
-    display: none;
 }

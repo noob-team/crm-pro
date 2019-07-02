@@ -10,7 +10,7 @@ document.body.innerHTML = `
                 <ul class="right hide-on-med-and-down">
                     <li><a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="Notifications"><i class="fas fa-bell"></i><span class="new badge red darken-4">4</span></a></li>
                     <li><a class="dropdown-trigger tooltipped" href="#!" data-target="dropdown" data-position="bottom" data-tooltip="Create"><i class="fas fa-plus"></i></a></li>
-                    <li><a href="index.php?logout='1'" class = "tooltipped" data-position="bottom" data-tooltip="Logout"><i class="fa fa-sign-out-alt"></i></a></li>
+                    <li><a id="logoutButton" class = "tooltipped" data-position="bottom" data-tooltip="Logout"><i class="fa fa-sign-out-alt"></i></a></li>
                 </ul>
             </div>
         </nav>

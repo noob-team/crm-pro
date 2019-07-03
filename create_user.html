@@ -15,49 +15,31 @@
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- sidebar and navbar css -->
     <link rel="stylesheet" href="./css/sidebarAndNavBar.css">
-
-
-    <title>Trial</title>
+    <title>Create User</title>
 
 </head>
 
 <body>
 
-    <div class="row container">
 
+    <div class="container">
+        <h3 class="center indigo-text text-darken-3">Create User</h3>
 
-
-
+        <div id="formdata"></div>
     </div>
-
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <!-- include sidebar and navbar -->
-    <script src="./js/sidebarAndNavBar.js"></script>
+    <script src="js/sidebarAndNavBar.js"></script>
+
+    <!-- materialize initialization -->
     <script src="js/auth.js"></script>
-    <script src="js/index.js"></script>
 
-    <script>
-        if (getCookie("username") == null || getCookie("username") == "") {
-            window.open("login.html", "_self");
-        }
-        setTimeout(() => {
-            if (getCookie("username") == null || getCookie("username") == "") {
-                window.open("login.html", "_self");
-            }
-        }, 5000);
-
-        $(function () {
-            $("#logoutButton").on('click', function () {
-                setCookie("username", "", 0);
-                setCookie("admintype", "", 0);
-                window.open("login.html", "_self");
-            });
-        });
-
-    </script>
+    <script src='js/create_user.js'></script>
 
 </body>
 

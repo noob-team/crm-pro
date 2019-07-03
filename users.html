@@ -39,8 +39,8 @@
             </form>
             <div class="fixed-action-btn">
                 <!-- modal trigger -->
-                <a id="add-btn" class="btn-floating btn btn-large waves-effect waves-light indigo modal-trigger"
-                    href="#modal">
+                <a id="add-btn" class="btn-floating btn btn-large waves-effect waves-light indigo"
+                    href="create_user.html">
                     <i class="material-icons">add</i>
                 </a>
             </div>
@@ -74,7 +74,7 @@
     <!-- Modal Structure -->
     <div id="modal" class="modal">
         <div class="modal-content">
-            <h4 id="modal-heading" class="center indigo-text">Enter Account Details</h4>
+            <h4 id="modal-heading" class="center indigo-text">Enter User Details</h4>
             <!-- form will be displayed by js -->
         </div>
     </div>
@@ -86,96 +86,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- include sidebar and navbar -->
     <script src="./js/sidebarAndNavBar.js"></script>
-    <!-- materialize initialization -->
-    <script src="./js/materializeInitialization.js"></script>
     <script src="js/auth.js"></script>
     <!-- import account form contents -->
     <script src="./js/user-form-contents.js"></script>
     <!-- account-form modal content setup with search -->
     <script src="./js/user.js"></script>
-
-
-    <script>
-        if (getCookie("username") == null || getCookie("username") == "") {
-            window.open("login.html", "_self");
-        }
-        setTimeout(() => {
-            if (getCookie("username") == null || getCookie("username") == "") {
-                window.open("login.html", "_self");
-            }
-        }, 5000);
-
-        $(function () {
-            $("#logoutButton").on('click', function () {
-                setCookie("username", "", 0);
-                window.open("login.html", "_self");
-            });
-        });
-
-        $(document).ready(function () {
-            $.ajax({
-                type: "POST",
-                url: "server/user.php",
-                data: { name: "getallusers" }
-            }).done(function (data) {
-                var result = $.parseJSON(data);
-                console.log(result);
-                if (result.error) {
-                    M.toast({ html: "Loading Error!" });
-                }
-                else {
-                    var tableRows = "";
-                    for (var i = 0; i < result.length; i++) {
-                        var email = result[i][0];
-                        var name = result[i][1];
-                        var phone = result[i][2];
-
-                        var template = `
-                        <tr>
-                            <td>
-                                <label>
-                                    <input type="checkbox" class="filled-in checkbox" />
-                                    <span></span>
-                                </label>
-                            </td>
-                            <td class="searchItems name_td">${name}</td>
-                            <td class="searchItems website_td">${email}</td>
-                            <td class="searchItems type_td">${phone}</td>
-                            <td class="searchItems billingcountry_td hide">Russia</td>
-                            <td class="billingstreet_td hide">20th street</td>
-                            <td class="billingcity_td hide">sdads</td>
-                            <td class="billingstate_td hide">fafdfsa</td>
-                            <td class="billingpostal_td hide">323</td>
-                            <td class="shippingstreet_td hide">ewsfsfd</td>
-                            <td class="shippingcity_td hide">hhfdfd</td>
-                            <td class="shippingstate_td hide">wtrre</td>
-                            <td class="shippingcountry_td hide">fsdfdfsd</td>
-                            <td class="shippingpostal_td hide">324</td>
-                            <td class="gstin_td hide">534</td>
-                            <td class="description_td hide">Whatever</td>
-                            <td class="phone_td hide">324344534</td>
-                            <td class="email_td hide">gfhg@gfdgf</td>
-                            <td>
-                                <a href="#modal" class="tooltipped modal-trigger view" data-position="bottom"
-                                    data-tooltip="view"><i class="fa fa-eye"></i></a>
-                                <a href="#modal" class="tooltipped modal-trigger edit" data-position="bottom"
-                                    data-tooltip="edit"><i class="fa fa-edit"></i></a>
-                                <a href="" class="tooltipped" data-position="bottom" data-tooltip="delete"><i
-                                        class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        `;
-                        tableRows += template;
-                    }
-                    document.getElementsByTagName("tbody")[0].innerHTML = tableRows;
-                }
-
-            });
-        });
-
-
-
-    </script>
 
 </body>
 

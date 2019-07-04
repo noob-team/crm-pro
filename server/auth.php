@@ -98,9 +98,6 @@
                 echo json_encode($arr);
               }
             }
-
-
-
         }
 
     }

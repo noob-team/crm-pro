@@ -90,6 +90,29 @@
 
             }
         }
+        else if($name=="getuser"){
+            $email = $_POST["email"];
+            $query1 = "SELECT * FROM usertable where useremail = '$email'";
+            $query2 = "SELECT * FROM usertoletable U,teamtable T,roletable R where U.useremail='$email' and U.roleid=R.roleid and R.teamid = T.teamid";
+            //TODO : task table
+            //TODO : Meetings
+            //TODO: calls
+            
+            $res1 = mysqli_query($db,$query1);
+            $res2 = mysqli_query($db,$query2);
+
+
+            $res1 = mysqli_fetch_row($res1);
+            $res2 = mysqli_fetch_all($res2);      
+
+
+            $arr = array(
+                "userInfo" => $res1,
+                "userTeam" => $res2
+            );
+            echo json_encode($arr);
+
+        }
         
 
     }

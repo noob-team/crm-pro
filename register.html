@@ -31,92 +31,145 @@
 </head>
 
 <body>
-    <div id="container">
-        <div class="card">
-            <div style="background:#3f51b5">
-                <img src="images/logo.png" alt="" class="image-responsive">
+
+    <div class="container">
+
+
+        <div class="row">
+            <div class="row">
+
+                <div class="col s12 m6 offset-m3">
+                    <div class="card center-align mg">
+                        <div style="background:#3f51b5">
+                            <img src="images/logo.png" alt="" class="image-responsive">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title">Register</span>
+                            <div class="input-field">
+                                <select id="admintype">
+                                    <option value="Administrator" selected="">Administrator</option>
+                                    <option value="Sales Manager">Sales Manager</option>
+                                    <option value="Support Manager">Support Manager</option>
+                                </select>
+                                <label>User</label>
+                            </div>
+                            <div class="input-field">
+                                <input id="username" name="username" type="text" class="validate">
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="input-field">
+                                <input id="password1" name="password_1" type="password" class="validate">
+                                <label for="password1">Password</label>
+                            </div>
+                            <div class="input-field">
+                                <input id="password2" name="password_2" type="password" class="validate">
+                                <label for="password2">Confirm Password</label>
+                            </div>
+
+                            <button class="btn pulse waves-effect waves-light" style="background:#3f51b5" id="reg_user"
+                                type="submit" name="action">Register
+                                <i class="material-icons right">send</i>
+                            </button>
+
+
+                        </div>
+                        <div class="card-action">
+                            <a href="login.html">Login</a>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            <div class="card-content">
 
-                <div class="input-field">
-                    <select id="admintype">
-                        <option value="Administrator" selected="">Administrator</option>
-                        <option value="Sales Manager">Sales Manager</option>
-                        <option value="Support Manager">Support Manager</option>
-                    </select>
-                    <label>User</label>
+
+
+
+            <!-- <div id="container">
+                <div class="card">
+                    <div style="background:#3f51b5">
+                        <img src="images/logo.png" alt="" class="image-responsive">
+                    </div>
+                    <div class="card-content">
+
+                        <div class="input-field">
+                            <select id="admintype">
+                                <option value="Administrator" selected="">Administrator</option>
+                                <option value="Sales Manager">Sales Manager</option>
+                                <option value="Support Manager">Support Manager</option>
+                            </select>
+                            <label>User</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="username" name="username" type="text" class="validate">
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="password1" name="password_1" type="password" class="validate">
+                            <label for="password1">Password</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="password2" name="password_2" type="password" class="validate">
+                            <label for="password2">Confirm Password</label>
+                        </div>
+                        <div class="input-field">
+                            <button class="btn indigo darken-1" id="reg_user">Register</button>
+                        </div>
+
+                    </div>
+                    <div class="card-action">
+                        <a href="login.html">Login</a>
+                    </div>
                 </div>
-                <div class="input-field">
-                    <input id="username" name="username" type="text" class="validate">
-                    <label for="username">Username</label>
-                </div>
-                <div class="input-field">
-                    <input id="password1" name="password_1" type="password" class="validate">
-                    <label for="password1">Password</label>
-                </div>
-                <div class="input-field">
-                    <input id="password2" name="password_2" type="password" class="validate">
-                    <label for="password2">Confirm Password</label>
-                </div>
-                <div class="input-field">
-                    <button class="btn indigo darken-1" id="reg_user">Register</button>
-                </div>
+            </div> -->
 
-            </div>
-            <div class="card-action">
-                <a href="login.html">Login</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="js/auth.js"></script>
+            <!-- jquery -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <!-- Compiled and minified JavaScript -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            <script src="js/auth.js"></script>
 
 
-    <script>
+            <script>
 
 
-        if (getCookie("username") != "" && getCookie("username") != null) {
-            window.open("index.html", "_self");
-        }
+                if (getCookie("username") != "" && getCookie("username") != null) {
+                    window.open("index.html", "_self");
+                }
 
 
-        $(document).ready(function () {
-            $('select').formSelect();
-        });
+                $(document).ready(function () {
+                    $('select').formSelect();
+                });
 
-        $(function () {
-            $("#reg_user").on('click', function () {
-                var username = $("#username").val();
-                var password1 = $("#password1").val();
-                var password2 = $("#password2").val();
-                var admintype = $("#admintype").val();
-                $.ajax({
-                    type: "POST",
-                    url: "server/auth.php",
-                    data: { name: "register", "username": username, "password1": password1, "password2": password2, "admintype": admintype }
-                }).done(function (data) {
-                    console.log(data);
-                    var result = $.parseJSON(data);
-                    if (result.error) {
-                        M.toast({ html: result.error });
-                    }
-                    else {
-                        setCookie("username", username);
-                        setCookie("admintype", admintype);
-                        window.open("index.html", '_self');
-                    }
+                $(function () {
+                    $("#reg_user").on('click', function () {
+                        var username = $("#username").val();
+                        var password1 = $("#password1").val();
+                        var password2 = $("#password2").val();
+                        var admintype = $("#admintype").val();
+                        $.ajax({
+                            type: "POST",
+                            url: "server/auth.php",
+                            data: { name: "register", "username": username, "password1": password1, "password2": password2, "admintype": admintype }
+                        }).done(function (data) {
+                            console.log(data);
+                            var result = $.parseJSON(data);
+                            if (result.error) {
+                                M.toast({ html: result.error });
+                            }
+                            else {
+                                setCookie("username", username);
+                                setCookie("admintype", admintype);
+                                window.open("index.html", '_self');
+                            }
 
-                })
+                        })
 
 
-            });
-        });
+                    });
+                });
 
-    </script>
+            </script>
 
 </body>
 

@@ -3,24 +3,6 @@ document.querySelector("#sidebar")
     .parentElement.parentElement
     .classList.add("active-link");
 
-
-if (getCookie("username") == null || getCookie("username") == "") {
-    window.open("login.html", "_self");
-}
-setTimeout(() => {
-    if (getCookie("username") == null || getCookie("username") == "") {
-        window.open("login.html", "_self");
-    }
-}, 5000);
-
-$(function () {
-    $("#logoutButton").on('click', function () {
-        setCookie("username", "", 0);
-        setCookie("admintype", "", 0);
-        window.open("login.html", "_self");
-    });
-});
-
 $(document).ready(function () {
     $.ajax({
         type: "POST",

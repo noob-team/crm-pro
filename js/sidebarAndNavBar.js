@@ -10,7 +10,7 @@ document.body.innerHTML = `
                 <ul class="right hide-on-med-and-down">
                     <li><a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="Notifications"><i class="fas fa-bell"></i><span class="new badge red darken-4">0</span></a></li>
                     <li><a class="dropdown-trigger tooltipped" href="#!" data-target="dropdown" data-position="bottom" data-tooltip="Create"><i class="fas fa-plus"></i></a></li>
-                    <li><a id="logoutButton" class = "tooltipped" data-position="bottom" data-tooltip="Logout"><i class="fa fa-sign-out-alt"></i></a></li>
+                    <li><a id="logoutButton" class = "logoutButton tooltipped" data-position="bottom" data-tooltip="Logout"><i class="fa fa-sign-out-alt"></i></a></li>
                 </ul>
             </div>
         </nav>
@@ -35,7 +35,7 @@ document.body.innerHTML = `
     <!-- Dropdown end -->
     <!-- Mobile sidenav -->
     <ul class="sidenav" id="mobile-demo">
-        <li><a id="logoutButton" class = "tooltipped" data-position="bottom" data-tooltip="Logout"><i class="fa fa-sign-out-alt"></i></a></li>
+        <li><a id="logoutButton2" href="" class = "logoutButton tooltipped" data-position="bottom" data-tooltip="Logout"><i class="fa fa-sign-out-alt"></i></a></li>
         <li><a href="index.html"><i class="fa fa-home"></i>HOME</a></li>
         <li><a href=""><i class="fa fa-user-circle"></i>ACCOUNTS</a></li>
         <li><a href=""><i class="fa fa-address-book"></i>CONTACTS</a></li>
@@ -78,3 +78,53 @@ $(document).ready(function () {
     $(".dropdown-trigger").dropdown();
     $('.tooltipped').tooltip();
 });
+
+if (getCookie("username") == null || getCookie("username") == "") {
+    window.open("login.html", "_self");
+}
+setTimeout(() => {
+    if (getCookie("username") == null || getCookie("username") == "") {
+        window.open("login.html", "_self");
+    }
+}, 5000);
+
+$(function () {
+    $("#logoutButton").on('click', function () {
+        setCookie("username", "", 0);
+        setCookie("admintype", "", 0);
+        window.open("login.html", "_self");
+    });
+});
+$(function () {
+    $("#logoutButton2").on('click', function () {
+        setCookie("username", "", 0);
+        setCookie("admintype", "", 0);
+        window.open("login.html", "_self");
+    });
+});
+
+function setCookie(name, value, days = 1) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+var eraseCookie = function (name, domain, path) {
+    var d = new Date();
+    d.setTime(d.getTime());
+    var expires = "expires=" + d.toUTCString()
+    document.cookie = name + "=" + "" + ";domain=" + domain + ";path=" + path + ";expires=" + expires;
+};

@@ -73,23 +73,6 @@ searchBar.addEventListener("keyup", (e) => {
 
 
 
-if (getCookie("username") == null || getCookie("username") == "") {
-    window.open("login.html", "_self");
-}
-setTimeout(() => {
-    if (getCookie("username") == null || getCookie("username") == "") {
-        window.open("login.html", "_self");
-    }
-}, 5000);
-
-$(function () {
-    $("#logoutButton").on('click', function () {
-        setCookie("username", "", 0);
-        setCookie("admintype", "", 0);
-        window.open("login.html", "_self");
-    });
-});
-
 $(document).ready(function () {
     $.ajax({
         type: "POST",
@@ -118,22 +101,8 @@ $(document).ready(function () {
                     <td class="searchItems name_td">${name}</td>
                     <td class="searchItems website_td">${email}</td>
                     <td class="searchItems type_td">${phone}</td>
-                    <td class="searchItems billingcountry_td hide">Russia</td>
-                    <td class="billingstreet_td hide">20th street</td>
-                    <td class="billingcity_td hide">sdads</td>
-                    <td class="billingstate_td hide">fafdfsa</td>
-                    <td class="billingpostal_td hide">323</td>
-                    <td class="shippingstreet_td hide">ewsfsfd</td>
-                    <td class="shippingcity_td hide">hhfdfd</td>
-                    <td class="shippingstate_td hide">wtrre</td>
-                    <td class="shippingcountry_td hide">fsdfdfsd</td>
-                    <td class="shippingpostal_td hide">324</td>
-                    <td class="gstin_td hide">534</td>
-                    <td class="description_td hide">Whatever</td>
-                    <td class="phone_td hide">324344534</td>
-                    <td class="email_td hide">gfhg@gfdgf</td>
                     <td>
-                        <a href="#modal" class="tooltipped modal-trigger view" data-position="bottom"
+                        <a href="showuser.html?email=${email}" class="tooltipped modal-trigger view" data-position="bottom"
                             data-tooltip="view"><i class="fa fa-eye"></i></a>
                         <a href="#modal" class="tooltipped modal-trigger edit" data-position="bottom"
                             data-tooltip="edit"><i class="fa fa-edit"></i></a>

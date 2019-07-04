@@ -76,7 +76,7 @@ searchBar.addEventListener("keyup", (e) => {
 $(document).ready(function () {
     $.ajax({
         type: "POST",
-        url: "server/user.php",
+        url: SERVER_PATH + "user.php",
         data: { name: "getallusers" }
     }).done(function (data) {
         var result = $.parseJSON(data);

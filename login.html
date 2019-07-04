@@ -121,7 +121,7 @@
                 var admintype = $("#admintype").val();
                 $.ajax({
                     type: "POST",
-                    url: "server/auth.php",
+                    url: SERVER_PATH + "auth.php",
                     data: { name: "login", "username": username, "password": password, "admintype": admintype }
                 }).done(function (data) {
                     var result = $.parseJSON(data);

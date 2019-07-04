@@ -12,7 +12,7 @@ var email = url.searchParams.get("email");
 $(document).ready(function () {
     $.ajax({
         type: "POST",
-        url: "server/user.php",
+        url: SERVER_PATH + "user.php",
         data: { name: "getuser", 'email': email }
     }).done(function (data) {
         var result = $.parseJSON(data);

@@ -6,7 +6,7 @@ document.querySelector("#sidebar")
 $(document).ready(function () {
     $.ajax({
         type: "POST",
-        url: "server/user.php",
+        url: SERVER_PATH + "user.php",
         data: { name: "getallteam" }
     }).done(function (data) {
         var result = $.parseJSON(data);

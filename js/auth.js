@@ -1,3 +1,5 @@
+const SERVER_PATH = 'server/';
+
 function setCookie(name, value, days = 1) {
   var expires = "";
   if (days) {

@@ -57,11 +57,11 @@ INSERT INTO `userteamtable` (`useremail`, `teamid`) VALUES ('rahul@gmail.com', '
 
 USER_ROLE_TABLE
 
-CREATE TABLE `crm`.`usertoletable` ( `useremail` VARCHAR(50) NOT NULL , `roleid` INT NOT NULL ) ENGINE = InnoDB;
+CREATE TABLE `crm`.`userroletable` ( `useremail` VARCHAR(50) NOT NULL , `roleid` INT NOT NULL ) ENGINE = InnoDB;
 
-ALTER TABLE `usertoletable` ADD CONSTRAINT `fkroleiduser` FOREIGN KEY (`roleid`) REFERENCES `roletable`(`roleid`) ON DELETE CASCADE ON UPDATE CASCADE; ALTER TABLE `usertoletable` ADD CONSTRAINT `fkuseremail` FOREIGN KEY (`useremail`) REFERENCES `usertable`(`useremail`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `userroletable` ADD CONSTRAINT `fkroleiduser` FOREIGN KEY (`roleid`) REFERENCES `roletable`(`roleid`) ON DELETE CASCADE ON UPDATE CASCADE; ALTER TABLE `userroletable` ADD CONSTRAINT `fkuseremail` FOREIGN KEY (`useremail`) REFERENCES `usertable`(`useremail`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-INSERT INTO `usertoletable` (`useremail`, `roleid`) VALUES ('rahul@gmail.com', '2')
+INSERT INTO `userroletable` (`useremail`, `roleid`) VALUES ('rahul@gmail.com', '2')
 
 --------------------------------------------------------------------------
 

@@ -66,7 +66,7 @@
                 }
             else{
                 $query = "INSERT INTO `usertable` (`useremail`, `username`, `userphone`, `usergender`, `userpassword`) VALUES ('$email', '$username', '$phone', '$gender', '$password')";
-                $query1 = "INSERT INTO `usertoletable` (`useremail`, `roleid`) VALUES ('$email', '$role')";
+                $query1 = "INSERT INTO `userroletable` (`useremail`, `roleid`) VALUES ('$email', '$role')";
                 $query2 = "INSERT INTO `userteamtable` (`useremail`, `teamid`) VALUES ('$email', '$team')";
 
                 $res1= mysqli_query($db, $query);
@@ -93,7 +93,7 @@
         else if($name=="getuser"){
             $email = $_POST["email"];
             $query1 = "SELECT * FROM usertable where useremail = '$email'";
-            $query2 = "SELECT * FROM usertoletable U,teamtable T,roletable R where U.useremail='$email' and U.roleid=R.roleid and R.teamid = T.teamid";
+            $query2 = "SELECT * FROM userroletable U,teamtable T,roletable R where U.useremail='$email' and U.roleid=R.roleid and R.teamid = T.teamid";
             //TODO : task table
             //TODO : Meetings
             //TODO: calls

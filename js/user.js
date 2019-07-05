@@ -71,9 +71,28 @@ searchBar.addEventListener("keyup", (e) => {
     }
 });
 
+$("#modalButtonYes").click(function (e) {
+    var email = e.currentTarget.name;
+    $.ajax({
+        type: "POST",
+        url: SERVER_PATH + "user.php",
+        data: { "name": "deleteUser", "email": email }
+    }).done(function (data) {
+        var result = $.parseJSON(data);
+        document.getElementById('modelParagraph').innerText = "";
+        document.getElementById('modalButtonYes').name = "";
+        if (result.error) {
+            M.toast({ html: "Error deleting user!" });
+        }
+        else {
+            window.open('users.html', '_self');
+        }
+    });
+});
 
 
 $(document).ready(function () {
+    $('.modal').modal();
     $.ajax({
         type: "POST",
         url: SERVER_PATH + "user.php",
@@ -90,6 +109,7 @@ $(document).ready(function () {
                 var name = result[i][1];
                 var phone = result[i][2];
 
+
                 var template = `
                 <tr>
                     <td>
@@ -102,18 +122,23 @@ $(document).ready(function () {
                     <td class="searchItems website_td">${email}</td>
                     <td class="searchItems type_td">${phone}</td>
                     <td>
-                        <a href="showuser.html?email=${email}" class="tooltipped modal-trigger view" data-position="bottom"
+                        <a href="showuser.html?email=${email}" class="tooltipped  view" data-position="bottom"
                             data-tooltip="view"><i class="fa fa-eye"></i></a>
-                        <a href="edituser.html?email=${email}" class="tooltipped modal-trigger edit" data-position="bottom"
+                        <a href="edituser.html?email=${email}" class="tooltipped edit" data-position="bottom"
                             data-tooltip="edit"><i class="fa fa-edit"></i></a>
-                        <a href="" class="tooltipped" data-position="bottom" data-tooltip="delete"><i
-                                class="fa fa-trash"></i></a>
+                        <button data-target="modal" class="btn-flat singleDelete modal-trigger waves-effect waves-light" name='${email}'><i
+                                class="fa fa-trash"></i></button>
                     </td>
                 </tr>
                 `;
                 tableRows += template;
             }
             document.getElementsByTagName("tbody")[0].innerHTML = tableRows;
+
+            $(".singleDelete").click(function (e) {
+                document.getElementById('modelParagraph').innerText = "Are you sure you want to delete user " + e.currentTarget.name + " ?";
+                document.getElementById('modalButtonYes').name = e.currentTarget.name;
+            });
         }
 
     });

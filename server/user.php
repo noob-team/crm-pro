@@ -154,6 +154,28 @@
             }
 
         }
+        else if($name=="deleteUser"){
+            $email = $_POST["email"];
+            $query = "DELETE from usertable where useremail='$email'";
+            $res1= mysqli_query($db, $query);
+
+            if($res1){
+                $sucess="Delete Successful";
+                $arr = array(
+                    "success" => $sucess
+                );
+                echo json_encode($arr);
+            }
+            else{
+                $error="Error Deleting account...";
+                $arr = array(
+                    "error" => $error
+                );
+                echo json_encode($arr);
+            }
+
+
+        }
         
 
     }

@@ -49,9 +49,9 @@
             </div>
         </div>
         <div id="act-on-multiple-select" class="center">
-            <a href="" id="delete-selected" class="tooltipped" data-position="bottom"
+            <button id="delete-selected" class="btn-flat tooltipped" data-position="bottom"
                 data-tooltip="Delete Selected Items"><i class="fa fa-trash"
-                    style="font-size: 25px; color: red;"></i></a>
+                    style="font-size: 25px; color: red;"></i></button>
         </div>
         <!-- accounts display -->
         <table class="centered highlight striped responsive-table">
@@ -81,6 +81,19 @@
             <div class="modal-footer">
                 <button class="modal-action modal-close waves-effect waves-red btn-flat ">No</button>
                 <button id="modalButtonYes"
+                    class="modal-action modal-close waves-effect waves-green btn-flat ">Yes</button>
+            </div>
+        </div>
+
+
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+                <h4>Confirm Delete</h4>
+                <p id="modelParagraph2"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-action modal-close waves-effect waves-red btn-flat ">No</button>
+                <button id="modalButtonYes2"
                     class="modal-action modal-close waves-effect waves-green btn-flat ">Yes</button>
             </div>
         </div>

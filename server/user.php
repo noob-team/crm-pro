@@ -173,8 +173,29 @@
                 );
                 echo json_encode($arr);
             }
+        }
+        else if($name=="deleteMultipleUsers"){
+            $emails = $_POST["email"];
+            $string = rtrim(implode("','", $emails), "','");
+           
+            $string = "'".$string."'";
+            $query = "DELETE from usertable where useremail in ( $string ) ";
+            $res1= mysqli_query($db, $query);
 
-
+            if($res1){
+                $sucess="Delete Successful";
+                $arr = array(
+                    "success" => $sucess
+                );
+                echo json_encode($arr);
+            }
+            else{
+                $error="Error Deleting account...";
+                $arr = array(
+                    "error" => $error
+                );
+                echo json_encode($arr);
+            }
         }
         
 

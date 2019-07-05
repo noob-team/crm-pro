@@ -18,7 +18,7 @@ for (let i = 0; i < checkboxes.length; i++) {
         } else {
             checkboxesSelectedCount--;
             if (!checkboxesSelectedCount) {
-                deleteSelected.style.display = "none";
+                deleteSelected.style.display = "inline-block";
             }
         }
         if (checkboxesSelectedCount === checkboxes.length)
@@ -38,7 +38,7 @@ selectAll_checkbox.addEventListener("change", (e) => {
         for (let i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = false;
             checkboxesSelectedCount = 0;
-            deleteSelected.style.display = "none";
+            deleteSelected.style.display = "inline-block";
         }
     }
 });
@@ -91,6 +91,45 @@ $("#modalButtonYes").click(function (e) {
 });
 
 
+$("#act-on-multiple-select").click(function (e) {
+    var emails = [];
+    var docmails = document.getElementsByTagName("tr");
+    for (var i = 1; i < docmails.length; i++) {
+        var checkbox = docmails[i].getElementsByClassName('checkbox')[0];
+        var email = docmails[i].getElementsByClassName('website_td')[0].innerText;
+        if (checkbox.checked)
+            emails.push(email);
+    }
+    if (emails.length == 0) {
+        M.toast({ html: "Please select users to delete.." });
+    } else {
+        //ask for confirmation
+        document.getElementById('modelParagraph2').innerText = "Are you sure you want to delete users " + emails.toString() + "?";
+        document.getElementById('modelParagraph2').name = JSON.stringify(emails);
+        $('#modal2').modal('open');
+    }
+});
+
+$("#modalButtonYes2").click(function (e) {
+    document.getElementById('modelParagraph2').innerText = "";
+    var emails = JSON.parse(document.getElementById('modelParagraph2').name);
+    document.getElementById('modelParagraph2').name = "";
+    $.ajax({
+        type: "POST",
+        url: SERVER_PATH + "user.php",
+        data: { "name": "deleteMultipleUsers", "email": emails }
+    }).done(function (data) {
+        var result = $.parseJSON(data);
+        if (result.error) {
+            M.toast({ html: "Error deleting user!" });
+        }
+        else {
+            window.open('users.html', '_self');
+        }
+    });
+});
+
+
 $(document).ready(function () {
     $('.modal').modal();
     $.ajax({
@@ -118,8 +157,8 @@ $(document).ready(function () {
                             <span></span>
                         </label>
                     </td>
-                    <td class="searchItems name_td">${name}</td>
-                    <td class="searchItems website_td">${email}</td>
+                    <td class="searchItems name_td"><a class="grey-text text-darken-4" href="showuser.html?email=${email}">${name}</a></td>
+                    <td class="searchItems website_td"><a class="grey-text text-darken-4" href="showuser.html?email=${email}">${email}</a></td>
                     <td class="searchItems type_td">${phone}</td>
                     <td>
                         <a href="showuser.html?email=${email}" class="tooltipped  view" data-position="bottom"

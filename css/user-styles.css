@@ -27,6 +27,6 @@ table i.fa-edit {
 }
 
 #delete-selected {
-    display: none;
+    display: inline-block;
     width: 100px;
 }

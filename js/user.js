@@ -104,7 +104,7 @@ $(document).ready(function () {
                     <td>
                         <a href="showuser.html?email=${email}" class="tooltipped modal-trigger view" data-position="bottom"
                             data-tooltip="view"><i class="fa fa-eye"></i></a>
-                        <a href="#modal" class="tooltipped modal-trigger edit" data-position="bottom"
+                        <a href="edituser.html?email=${email}" class="tooltipped modal-trigger edit" data-position="bottom"
                             data-tooltip="edit"><i class="fa fa-edit"></i></a>
                         <a href="" class="tooltipped" data-position="bottom" data-tooltip="delete"><i
                                 class="fa fa-trash"></i></a>

@@ -113,6 +113,47 @@
             echo json_encode($arr);
 
         }
+        else if($name=="updateUserInfo"){
+            $oldValues = $_POST["oldValues"];
+            $newValues = $_POST["newValues"];
+            
+            $oldEmail = $oldValues['email'];
+            $refNewEmail = $newValues["email"];
+            $newName = $newValues["name"];
+            $newPhone = $newValues["phone"];
+            $newGender = $newValues["gender"];
+            $newPassword = $newValues["password"];
+
+            
+            $query1 = "UPDATE `usertable` SET 
+                `useremail` = '$refNewEmail',
+                `username` = '$newName',
+                `userphone` = $newPhone,
+                `usergender` = '$newGender',
+                `userpassword` = '$newPassword'            
+            WHERE `usertable`.`useremail` = '$oldEmail'";
+
+
+            $res1= mysqli_query($db, $query1);
+
+            if($res1){
+                
+                $sucess="Updates Saved.";
+                $arr = array(
+                    "success" => $sucess
+                );
+                echo json_encode($arr);
+
+            }
+            else{
+                $error="Error Updating account...";
+                $arr = array(
+                    "error" => $error
+                );
+                echo json_encode($arr);
+            }
+
+        }
         
 
     }

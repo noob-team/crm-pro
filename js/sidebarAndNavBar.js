@@ -30,7 +30,8 @@ document.body.innerHTML = `
         <li class="divider"></li>
         <li><a href="#!" style = "color: var(--indigo); text-align: center;">Task</a></li>
         <li class="divider"></li>
-        <li><a href="users.html" style = "color: var(--indigo); text-align: center;">User</a></li>
+        <li><a href="create_user.html" style = "color: var(--indigo); text-align: center;">User</a></li>
+        <li class="divider"></li>
     </ul>
     <!-- Dropdown end -->
     <!-- Mobile sidenav -->

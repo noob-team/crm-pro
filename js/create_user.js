@@ -30,7 +30,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: "server/user.php",
+                url: SERVER_PATH + "user.php",
                 data: { name: "getallroles" }
             }).done(function (data) {
                 var result = $.parseJSON(data);
@@ -104,7 +104,7 @@ $(document).ready(function () {
                             var role = $("#roleid").val();
                             $.ajax({
                                 type: "POST",
-                                url: "server/user.php",
+                                url: SERVER_PATH + "user.php",
                                 data: { "name": 'createuser', "username": username, "password": password, "email": email, "phone": phone, "gender": gender, "team": team, "role": role }
                             }).done(function (data) {
                                 var result = $.parseJSON(data);

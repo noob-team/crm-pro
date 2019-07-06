@@ -18,7 +18,7 @@ document.body.innerHTML = `
     <!-- PC navbar end -->
     <!-- Dropdown -->
     <ul id="dropdown" class="dropdown-content">
-        <li><a href="#!" style = "color: var(--indigo); text-align: center;">Account</a></li>
+        <li><a href="create_account.html" style = "color: var(--indigo); text-align: center;">Account</a></li>
         <li class="divider"></li>
         <li><a href="#!" style = "color: var(--indigo); text-align: center;">Contact</a></li>
         <li class="divider"></li>
@@ -38,7 +38,7 @@ document.body.innerHTML = `
     <ul class="sidenav" id="mobile-demo">
         <li><a id="logoutButton2" href="" class = "logoutButton tooltipped" data-position="bottom" data-tooltip="Logout"><i class="fa fa-sign-out-alt"></i></a></li>
         <li><a href="index.html"><i class="fa fa-home"></i>HOME</a></li>
-        <li><a href=""><i class="fa fa-user-circle"></i>ACCOUNTS</a></li>
+        <li><a href="accounts.html"><i class="fa fa-user-circle"></i>ACCOUNTS</a></li>
         <li><a href=""><i class="fa fa-address-book"></i>CONTACTS</a></li>
         <li><a href=""><i class="fa fa-envelope"></i>EMAILS</a></li>
         <li><a href=""><i class="fa fa-calendar-week"></i>CALENDER</a></li>
@@ -54,7 +54,7 @@ document.body.innerHTML = `
     <div id = "sidebar" class = "indigo z-depth-2 hide-on-med-and-down">
         <ul>
             <li><a href="index.html"><i class="fa fa-home"></i>HOME</a></li>
-            <li><a href=""><i class="fa fa-user-circle"></i>ACCOUNTS</a></li>
+            <li><a href="accounts.html"><i class="fa fa-user-circle"></i>ACCOUNTS</a></li>
             <li><a href=""><i class="fa fa-address-book"></i>CONTACTS</a></li>
             <li><a href=""><i class="fa fa-envelope"></i>EMAILS</a></li>
             <li><a href=""><i class="fa fa-calendar-week"></i>CALENDER</a></li>

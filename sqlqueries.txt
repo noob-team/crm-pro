@@ -78,3 +78,11 @@ CREATE TABLE `crm`.`tasktable` ( `taskid` INT NOT NULL AUTO_INCREMENT , `tasknam
 
 ALTER TABLE `tasktable` ADD CONSTRAINT `taskuserfk` FOREIGN KEY (`taskuseremail`) REFERENCES `usertable`(`useremail`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+ACCOUNTS_TABLE
+
+CREATE TABLE `crm`.`accounttable` ( `accountemail` VARCHAR(50) NOT NULL , `accountname` VARCHAR(250) NOT NULL , `accountwebsite` VARCHAR(250) NOT NULL , `accountphone1` BIGINT NOT NULL , `accountphone2` BIGINT NOT NULL , `accountbillingstreet` VARCHAR(250) NOT NULL , `accountbillingcity` VARCHAR(250) NOT NULL , `accountbillingstate` VARCHAR(250) NOT NULL , `accountbillingpostal` BIGINT NOT NULL , `accountbillingcountry` VARCHAR(250) NOT NULL , `accountshippingstreet` VARCHAR(250) NOT NULL , `accountshippingcity` VARCHAR(250) NOT NULL , `accountshippingstate` VARCHAR(250) NOT NULL , `accountshippingpostal` BIGINT NOT NULL , `accountshippingcountry` VARCHAR(250) NOT NULL , `accountType` VARCHAR(250) NOT NULL , `accountGST` VARCHAR(250) NOT NULL , `accountIndustry` VARCHAR(250) NOT NULL , `accountDescription` VARCHAR(1000) NOT NULL , `assigneduseremail` VARCHAR(250) NOT NULL , PRIMARY KEY (`accountemail`)) ENGINE = InnoDB;
+
+ALTER TABLE `accounttable` ADD FOREIGN KEY (`assigneduseremail`) REFERENCES `usertable`(`useremail`) ON DELETE CASCADE ON UPDATE CASCADE;
+

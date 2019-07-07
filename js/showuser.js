@@ -1,6 +1,6 @@
 // --- set accounts link active ---
 document.querySelector("#sidebar")
-    .getElementsByClassName("fa-user-circle")[0]
+    .getElementsByClassName("fa-user")[0]
     .parentElement.parentElement
     .classList.add("active-link");
 
@@ -12,8 +12,8 @@ var email = url.searchParams.get("email");
 $(document).ready(function () {
     $.ajax({
         type: "POST",
-        url: SERVER_PATH + "account.php",
-        data: { name: "getaccount", 'email': email }
+        url: SERVER_PATH + "user.php",
+        data: { name: "getuser", 'email': email }
     }).done(function (data) {
         var result = $.parseJSON(data);
         if (result.error) {
@@ -68,9 +68,59 @@ $(document).ready(function () {
             `;
 
 
+            var userTeamCard = '';
 
 
-            document.getElementsByClassName('uniqElement')[0].innerHTML += (userCard);
+            if (userTeams) {
+                userTeamCard = `
+                <div class="row">
+                    <div class="col s12 m6 l6">
+                        <div class="card ">
+                            <div class="card-content">
+                                <span class="card-title">Teams</span>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Role</th>
+                                            <th>Department</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                   `;
+
+                for (var i = 0; i < userTeams.length; i++) {
+                    var template = `
+                    <tr>
+                        <td>${userTeams[i][5]}</td>
+                        <td>${userTeams[i][3]}</td>    
+                    </tr>                
+                    `;
+                    userTeamCard += template;
+                }
+
+                userTeamCard += `
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+
+            }
+
+
+            document.getElementsByClassName('uniqElement')[0].innerHTML += (userCard + userTeamCard);
+
+            document.getElementById('showPass').onclick = function () {
+                if (document.getElementById('showPass').checked) {
+                    document.getElementById('password').type = 'text';
+                } else {
+                    document.getElementById('password').type = 'password';
+                }
+            }
+
+
         }
 
     });

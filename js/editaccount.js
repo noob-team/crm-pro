@@ -170,11 +170,13 @@ $(document).ready(function () {
                                 <label>Type</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <textarea id="desc" class="materialize-textarea"></textarea>
-                                <label for="desc">Enter Description</label>
+                                <textarea id="desc" class="materialize-textarea">${userInfo[18]}</textarea>
+                                <label for="desc" class="active">Enter Description</label>
                           </div>       
                           <div class = "center">
-                            <button id = "modal-btn" class="btn waves-effect waves-light indigo">Add</button>
+                            <button class="btn pulse waves-effect waves-light" style="background:#3f51b5" id="saveUserInfo" type="submit">Save Changes
+                                <i class="material-icons right">save</i>
+                            </button>
                           </div>     
                         </div>
                     </div>
@@ -214,26 +216,52 @@ $(document).ready(function () {
 
 
                         var industry = document.getElementById('industry');
-
+                        var sub = industry.children;
+                        for (var i = 1; i < sub.length; i++) {
+                            var opt = sub[i];
+                            if (opt.value == userInfo[17]) {
+                                opt.selected = true;
+                                break;
+                            }
+                        }
+                        $('#industry').formSelect();
 
 
                         $(function () {
                             $("#saveUserInfo").on('click', function () {
 
-                                var oldValues = userInfo;
-                                var email = document.getElementById('email').value;
-                                var name = document.getElementById('name').value;
-                                var gender = document.getElementById('gender').value;
-                                var password = document.getElementById('password').value;
-                                var phone = document.getElementById('phone').value;
+                                var oldEmail = email;
 
-                                var oldValues = { "email": oldValues[0], "name": oldValues[1], "phone": oldValues[2], "gender": oldValues[3], "password": oldValues[4] };
-                                var newValues = { "email": email, "name": name, "phone": phone, "gender": gender, "password": password };
+                                var newdata = {
+                                    "name": document.getElementById('name').value,
+                                    "email": document.getElementById('emailid').value,
+                                    "website": document.getElementById('website').value,
+                                    "telephone1": document.getElementById('telephoneid1').value,
+                                    "telephone2": document.getElementById('telephoneid2').value,
+                                    "gstno": document.getElementById('gstno').value,
+
+                                    "billingstreetaddr": document.getElementById('billingstreetaddr').value,
+                                    "billingcityaddr": document.getElementById('billingcityaddr').value,
+                                    "billingstate": document.getElementById('billingstate').value,
+                                    "billingpostal": document.getElementById('billingpostal').value,
+                                    "billingcountry": document.getElementById('billingcountry').value,
+
+                                    "shippingstreetaddr": document.getElementById('shippingstreetaddr').value,
+                                    "shippingcityaddr": document.getElementById('shippingcityaddr').value,
+                                    "shippingstate": document.getElementById('shippingstate').value,
+                                    "shippingpostal": document.getElementById('shippingpostal').value,
+                                    "shippingcountry": document.getElementById('shippingcountry').value,
+
+                                    "indsustryType": document.getElementById('industry').value,
+                                    "desc": document.getElementById('desc').value,
+                                    "usertype": document.getElementById('typeid').value,
+                                    "assigneduser": document.getElementById('userid').value
+                                };
 
                                 $.ajax({
                                     type: "POST",
-                                    url: SERVER_PATH + "user.php",
-                                    data: { "name": "updateUserInfo", "oldValues": oldValues, "newValues": newValues }
+                                    url: SERVER_PATH + "account.php",
+                                    data: { "name": "updateAccountInfo", "oldEmail": oldEmail, "newdata": newdata }
                                 }).done(function (data) {
                                     console.log(data);
                                     var result = $.parseJSON(data);

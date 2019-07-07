@@ -15,7 +15,6 @@ $(document).ready(function () {
         url: SERVER_PATH + "account.php",
         data: { name: "getaccount", 'email': email }
     }).done(function (data) {
-        console.log(data);
         var result = $.parseJSON(data);
         if (result.error) {
             M.toast({ html: "Loading Error!" });

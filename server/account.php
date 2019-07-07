@@ -86,6 +86,38 @@
             }
         
         }
+        else if($name=="updateAccountInfo"){
+            $oldemail = $_POST["oldEmail"];
+            $data = $_POST["newdata"];
+
+            $newemail = $data["email"];
+            $name = $data["name"];
+            $website = $data["website"];
+            $telephone1 = $data["telephone1"];
+            $telephone2 = $data["telephone2"];
+
+            $billingstreetaddr=$data["billingstreetaddr"];
+            $billingcityaddr = $data["billingcityaddr"];
+            $billingstate = $data["billingstate"];
+            $billingpostal = $data["billingpostal"];
+            $billingcountry = $data["billingcountry"];
+
+            $shippingstreetaddr = $data["shippingstreetaddr"];
+            $shippingcityaddr = $data["shippingcityaddr"];
+            $shippingstate = $data["shippingstate"];
+            $shippingpostal = $data["shippingpostal"];
+            $shippingcountry = $data["shippingcountry"];
+
+            $indsustryType = $data["indsustryType"];
+            $usertype = $data["usertype"];
+            $gstno = $data["gstno"];
+            $desc = $data["desc"];
+            $assigneduser = $data["assigneduser"];
+
+            
+
+
+        }
         
     }
 ?>

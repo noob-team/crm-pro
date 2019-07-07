@@ -1,6 +1,6 @@
 // --- set accounts link active ---
 document.querySelector("#sidebar")
-    .getElementsByClassName("fa-user")[0]
+    .getElementsByClassName("fa-user-circle")[0]
     .parentElement.parentElement
     .classList.add("active-link");
 
@@ -15,6 +15,7 @@ $(document).ready(function () {
         url: SERVER_PATH + "account.php",
         data: { name: "getaccount", 'email': email }
     }).done(function (data) {
+        console.log(data);
         var result = $.parseJSON(data);
         if (result.error) {
             M.toast({ html: "Loading Error!" });
@@ -27,7 +28,7 @@ $(document).ready(function () {
             <div class="col col s12 m12 l12">
                 <div id = "modal-form"  class="card">
                     <div class="card-content">
-                        <span class="card-title">Overview</span>
+                        <span class="card-title">Account Overview</span>
                         <div class="row">
                             <div class="input-field col s12 m6">
                                 <p class="grey-text">Name</p>  
@@ -39,7 +40,7 @@ $(document).ready(function () {
                             </div>
                             <div class="input-field col s12 m6">
                                 <p class="grey-text">Website</p>  
-                                <a href="http://${userInfo[2]}" class="grey-text" value='${userInfo[2]}'>${userInfo[2]}</a>
+                                <a href="http://${userInfo[2]}" class="grey-text">${userInfo[2]}</a>
                             </div>
                             <div class="input-field col s12 m6">
                                 <p class="grey-text">Mobile 1</p>  
@@ -63,7 +64,11 @@ $(document).ready(function () {
                             </div>
                             <div class="input-field col s12 m12">
                                 <p class="grey-text">Description</p>  
-                                <textarea  id="name" class="materialize-textarea" disabled >${userInfo[16]}</textarea>
+                                <textarea  id="name" class="materialize-textarea" disabled >${userInfo[18]}</textarea>
+                            </div>
+                            <div class="input-field col s12 m12">
+                                <p class="grey-text">Assigned User</p>  
+                                <a href="showuser.html?email=${userInfo[19]}" class="grey-text" >${userInfo[21]}</a>
                             </div>
                         </div>
                     </div>

@@ -124,7 +124,6 @@ $(document).ready(function () {
             var elems = document.querySelectorAll('select');
             var instances = M.FormSelect.init(elems);
 
-            var leaveCode = document.querySelector('#gender');
             var list = ['Male', 'Female', 'Neutral'];
             var id = list.indexOf(userInfo[3]);
             document.getElementById(id).selected = true;

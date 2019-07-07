@@ -68,7 +68,7 @@
         }
         else if($name == "getaccount"){
             $email = $_POST['email'];
-            $query = "SELECT * FROM accounttable where accountemail='$email' ";
+            $query = "SELECT * FROM accounttable A,usertable U where A.accountemail='$email' and A.assigneduseremail=U.useremail ";
             $results = mysqli_query($db, $query);
             if($results){
                 $data = mysqli_fetch_row($results);     

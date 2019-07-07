@@ -257,7 +257,6 @@ $(document).ready(function () {
                                     "usertype": document.getElementById('typeid').value,
                                     "assigneduser": document.getElementById('userid').value
                                 };
-
                                 $.ajax({
                                     type: "POST",
                                     url: SERVER_PATH + "account.php",

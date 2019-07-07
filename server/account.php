@@ -114,8 +114,51 @@
             $desc = $data["desc"];
             $assigneduser = $data["assigneduser"];
 
-            
+            $query1 = "UPDATE `accounttable` SET 
+            `accountemail` = '$newemail',
+            `accountname` = '$name',
+            `accountwebsite` = '$website',
+            `accountphone1` = '$telephone1',
+            `accountphone2` = '$telephone2',
 
+            `accountbillingstreet` = '$billingstreetaddr',
+            `accountbillingcity` = '$billingcityaddr',
+            `accountbillingstate` = '$billingstate',
+            `accountbillingpostal` = '$billingpostal',
+            `accountbillingcountry` = '$billingcountry',
+
+            `accountshippingstreet` = '$shippingstreetaddr',
+            `accountshippingcity` = '$shippingcityaddr',
+            `accountshippingstate` = '$shippingstate',
+            `accountshippingpostal` = '$shippingpostal',
+            `accountshippingcountry` = '$shippingcountry',
+
+            `accountType` = '$usertype',
+            `accountGST` = '$gstno',
+            `accountIndustry` = '$indsustryType',
+            `accountDescription` = '$desc',
+            `assigneduseremail` = '$assigneduser'
+
+             WHERE `accounttable`.`accountemail` = '$oldemail'";
+
+            $res1= mysqli_query($db, $query1);
+
+            if($res1){
+                
+                $sucess="Updates Saved.";
+                $arr = array(
+                    "success" => $sucess
+                );
+                echo json_encode($arr);
+
+            }
+            else{
+                $error="Error Updating account...";
+                $arr = array(
+                    "error" => $db->error
+                );
+                echo json_encode($arr);
+            }
 
         }
         

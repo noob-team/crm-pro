@@ -134,8 +134,8 @@ $(document).ready(function () {
     $('.modal').modal();
     $.ajax({
         type: "POST",
-        url: SERVER_PATH + "user.php",
-        data: { name: "getallusers" }
+        url: SERVER_PATH + "account.php",
+        data: { name: "getallaccounts" }
     }).done(function (data) {
         var result = $.parseJSON(data);
         if (result.error) {
@@ -146,8 +146,10 @@ $(document).ready(function () {
             for (var i = 0; i < result.length; i++) {
                 var email = result[i][0];
                 var name = result[i][1];
-                var phone = result[i][2];
+                var website = result[i][2];
+                var countrybill = result[i][9];
 
+                var type = result[i][15];
 
                 var template = `
                 <tr>
@@ -157,13 +159,15 @@ $(document).ready(function () {
                             <span></span>
                         </label>
                     </td>
-                    <td class="searchItems name_td"><a class="grey-text text-darken-4" href="showuser.html?email=${email}">${name}</a></td>
-                    <td class="searchItems website_td"><a class="grey-text text-darken-4" href="showuser.html?email=${email}">${email}</a></td>
-                    <td class="searchItems type_td">${phone}</td>
+                    <td class="searchItems name_td"><a class="grey-text text-darken-4" href="showaccount.html?email=${email}">${name}</a></td>
+                    <td class="searchItems website_td"><a class="grey-text text-darken-4" href="https://${website}">${website}</a></td>
+                    <td class="searchItems type_td">${type}</td>
+                    <td class="searchItems country_td">${countrybill}</td>
+                   
                     <td>
-                        <a href="showuser.html?email=${email}" class="tooltipped  view" data-position="bottom"
+                        <a href="showaccount.html?email=${email}" class="tooltipped  view" data-position="bottom"
                             data-tooltip="view"><i class="fa fa-eye"></i></a>
-                        <a href="edituser.html?email=${email}" class="tooltipped edit" data-position="bottom"
+                        <a href="editaccount.html?email=${email}" class="tooltipped edit" data-position="bottom"
                             data-tooltip="edit"><i class="fa fa-edit"></i></a>
                         <button data-target="modal" class="btn-flat singleDelete modal-trigger waves-effect waves-light" name='${email}'><i
                                 class="fa fa-trash"></i></button>

@@ -81,7 +81,7 @@
                     echo json_encode($arr);
                 }
                 else{
-                    $error="Error creating account...";
+                    $error="Error creating user...";
                     $arr = array(
                         "error" => $error
                     );

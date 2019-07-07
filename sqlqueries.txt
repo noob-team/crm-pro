@@ -86,3 +86,4 @@ CREATE TABLE `crm`.`accounttable` ( `accountemail` VARCHAR(50) NOT NULL , `accou
 
 ALTER TABLE `accounttable` ADD FOREIGN KEY (`assigneduseremail`) REFERENCES `usertable`(`useremail`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+INSERT INTO `accounttable` (`accountemail`, `accountname`, `accountwebsite`, `accountphone1`, `accountphone2`, `accountbillingstreet`, `accountbillingcity`, `accountbillingstate`, `accountbillingpostal`, `accountbillingcountry`, `accountshippingstreet`, `accountshippingcity`, `accountshippingstate`, `accountshippingpostal`, `accountshippingcountry`, `accountType`, `accountGST`, `accountIndustry`, `accountDescription`, `assigneduseremail`) VALUES ('jd@gmail.com', 'John doe', 'johndoe.com', '1111', '2222', '123', '123', '123', '123', '123', '321', '123', '123', '123', '123', 'Retailer', '111', 'indus', 'test', 'assa@gmal.com');

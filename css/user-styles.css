@@ -30,3 +30,8 @@ table i.fa-edit {
     display: inline-block;
     width: 100px;
 }
+
+
+.hidden{
+    display: none;
+}

@@ -43,49 +43,57 @@ selectAll_checkbox.addEventListener("change", (e) => {
     }
 });
 
-// --- for search ---
-const findNextMultipleOf4 = (n) => {
-    return ((4 - n % 4) + n);
-}
-// findNextMultiple = (n, m) => {
-//     return ((n - m % n) + m)
-// }
 const searchBar = document.querySelector("#searchBar");
 const searchItems = document.getElementsByClassName("searchItems");
+var originalRows = null;
+var oldDispaly = null;
 searchBar.addEventListener("keyup", (e) => {
     let searchBarValue = searchBar.value.toLowerCase();
-    for (let i = 0; i < searchItems.length; i++) {
-        let searchItemValue = searchItems[i].textContent.toLowerCase();
-        // console.log("SEARCH ITEMS VALUE: ", searchItemValue);
-        if ((searchItemValue.includes(searchBarValue))) {
-            // console.log("FOUND!", searchItems[i].parentElement);
-            searchItems[i].parentElement.style.display = "";
-            if ((i + 1) % 4 !== 0) {
-                i = (findNextMultipleOf4(i) - 1);
-            }
-            // console.log("FOUND!", searchItems[i].parentElement.style.display);
-        } else {
-            // console.log("NOT FOUND!", searchItems[i].parentElement);
-            searchItems[i].parentElement.style.display = "none";
-        }
+
+    if (originalRows == null) {
+        originalRows = document.getElementsByTagName('tr');
     }
+    var tablerows = originalRows;
+    for (var i = 1; i < tablerows.length; i++) {
+
+        let tr = tablerows[i];
+        let childs = tr.children;
+        var found = false;
+        for (var j = 0; j < childs.length; j++) {
+            if (childs[j].innerText.toLowerCase().includes(searchBarValue)) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            if (oldDispaly == null)
+                oldDispaly = tr.style.display;
+            tr.style.display = 'none';
+        }
+        else {
+            tr.style.display = oldDispaly;
+        }
+
+    }
+
+
 });
 
 $("#modalButtonYes").click(function (e) {
     var email = e.currentTarget.name;
     $.ajax({
         type: "POST",
-        url: SERVER_PATH + "user.php",
-        data: { "name": "deleteUser", "email": email }
+        url: SERVER_PATH + "account.php",
+        data: { "name": "deleteAccount", "email": email }
     }).done(function (data) {
         var result = $.parseJSON(data);
         document.getElementById('modelParagraph').innerText = "";
         document.getElementById('modalButtonYes').name = "";
         if (result.error) {
-            M.toast({ html: "Error deleting user!" });
+            M.toast({ html: "Error deleting" });
         }
         else {
-            window.open('users.html', '_self');
+            window.open('accounts.html', '_self');
         }
     });
 });
@@ -96,7 +104,7 @@ $("#act-on-multiple-select").click(function (e) {
     var docmails = document.getElementsByTagName("tr");
     for (var i = 1; i < docmails.length; i++) {
         var checkbox = docmails[i].getElementsByClassName('checkbox')[0];
-        var email = docmails[i].getElementsByClassName('website_td')[0].innerText;
+        var email = docmails[i].getElementsByClassName('email_td')[0].innerText;
         if (checkbox.checked)
             emails.push(email);
     }
@@ -113,18 +121,19 @@ $("#act-on-multiple-select").click(function (e) {
 $("#modalButtonYes2").click(function (e) {
     document.getElementById('modelParagraph2').innerText = "";
     var emails = JSON.parse(document.getElementById('modelParagraph2').name);
+    console.log(emails);
     document.getElementById('modelParagraph2').name = "";
     $.ajax({
         type: "POST",
-        url: SERVER_PATH + "user.php",
-        data: { "name": "deleteMultipleUsers", "email": emails }
+        url: SERVER_PATH + "account.php",
+        data: { "name": "deleteMultipleAccounts", "email": emails }
     }).done(function (data) {
         var result = $.parseJSON(data);
         if (result.error) {
             M.toast({ html: "Error deleting user!" });
         }
         else {
-            window.open('users.html', '_self');
+            window.open('accounts.html', '_self');
         }
     });
 });
@@ -163,7 +172,7 @@ $(document).ready(function () {
                     <td class="searchItems website_td"><a class="grey-text text-darken-4" href="https://${website}">${website}</a></td>
                     <td class="searchItems type_td">${type}</td>
                     <td class="searchItems country_td">${countrybill}</td>
-                   
+                    <td class="searchItems email_td hidden">${email}</td>
                     <td>
                         <a href="showaccount.html?email=${email}" class="tooltipped  view" data-position="bottom"
                             data-tooltip="view"><i class="fa fa-eye"></i></a>

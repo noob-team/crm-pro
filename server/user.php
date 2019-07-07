@@ -169,7 +169,7 @@
             else{
                 $error="Error Deleting account...";
                 $arr = array(
-                    "error" => $error
+                    "error" => $error.$db->error
                 );
                 echo json_encode($arr);
             }
@@ -192,7 +192,7 @@
             else{
                 $error="Error Deleting account...";
                 $arr = array(
-                    "error" => $error
+                    "error" => $error.$db->error
                 );
                 echo json_encode($arr);
             }

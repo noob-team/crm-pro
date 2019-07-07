@@ -43,30 +43,35 @@ selectAll_checkbox.addEventListener("change", (e) => {
     }
 });
 
-// --- for search ---
-const findNextMultipleOf4 = (n) => {
-    return ((4 - n % 4) + n);
-}
-// findNextMultiple = (n, m) => {
-//     return ((n - m % n) + m)
-// }
 const searchBar = document.querySelector("#searchBar");
 const searchItems = document.getElementsByClassName("searchItems");
+var originalRows = null;
+var oldDispaly = null;
 searchBar.addEventListener("keyup", (e) => {
     let searchBarValue = searchBar.value.toLowerCase();
-    for (let i = 0; i < searchItems.length; i++) {
-        let searchItemValue = searchItems[i].textContent.toLowerCase();
-        // console.log("SEARCH ITEMS VALUE: ", searchItemValue);
-        if ((searchItemValue.includes(searchBarValue))) {
-            // console.log("FOUND!", searchItems[i].parentElement);
-            searchItems[i].parentElement.style.display = "";
-            if ((i + 1) % 4 !== 0) {
-                i = (findNextMultipleOf4(i) - 1);
+
+    if (originalRows == null) {
+        originalRows = document.getElementsByTagName('tr');
+    }
+    var tablerows = originalRows;
+    for (var i = 1; i < tablerows.length; i++) {
+
+        let tr = tablerows[i];
+        let childs = tr.children;
+        var found = false;
+        for (var j = 0; j < childs.length; j++) {
+            if (childs[j].innerText.toLowerCase().includes(searchBarValue)) {
+                found = true;
+                break;
             }
-            // console.log("FOUND!", searchItems[i].parentElement.style.display);
-        } else {
-            // console.log("NOT FOUND!", searchItems[i].parentElement);
-            searchItems[i].parentElement.style.display = "none";
+        }
+        if (!found) {
+            if (oldDispaly == null)
+                oldDispaly = tr.style.display;
+            tr.style.display = 'none';
+        }
+        else {
+            tr.style.display = oldDispaly;
         }
     }
 });
@@ -82,7 +87,7 @@ $("#modalButtonYes").click(function (e) {
         document.getElementById('modelParagraph').innerText = "";
         document.getElementById('modalButtonYes').name = "";
         if (result.error) {
-            M.toast({ html: "Error deleting user!" });
+            M.toast({ html: "Error deleting user " });
         }
         else {
             window.open('users.html', '_self');
@@ -121,7 +126,7 @@ $("#modalButtonYes2").click(function (e) {
     }).done(function (data) {
         var result = $.parseJSON(data);
         if (result.error) {
-            M.toast({ html: "Error deleting user!" });
+            M.toast({ html: "Error deleting user " });
         }
         else {
             window.open('users.html', '_self');

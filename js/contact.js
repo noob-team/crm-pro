@@ -172,7 +172,7 @@ $(document).ready(function () {
                     <td class="searchItems name_td"><a class="grey-text text-darken-4" href="showcontact.html?email=${email}">${name}</a></td>
                     <td class="searchItems account_td"><a class="grey-text text-darken-4" href="showaccount.html?email=${accountemail}">${accountname}</a></td>
                     <td class="searchItems email_td"><a class="grey-text text-darken-4" href="showcontact.html?email=${email}">${email}</a></td>
-                    <td class="searchItems email_td hidden">${phone}</td>
+                    <td class="searchItems email_td">${phone}</td>
                     <td>
                         <a href="showcontact.html?email=${email}" class="tooltipped  view" data-position="bottom"
                             data-tooltip="view"><i class="fa fa-eye"></i></a>

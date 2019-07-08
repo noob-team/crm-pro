@@ -99,7 +99,7 @@ $("#modalButtonYes").click(function (e) {
 });
 
 
-$("#act-on-multiple-select").click(function (e) {
+$("#delete-selected").click(function (e) {
     var emails = [];
     var docmails = document.getElementsByTagName("tr");
     for (var i = 1; i < docmails.length; i++) {
@@ -109,10 +109,10 @@ $("#act-on-multiple-select").click(function (e) {
             emails.push(email);
     }
     if (emails.length == 0) {
-        M.toast({ html: "Please select users to delete.." });
+        M.toast({ html: "Please select accounts to delete.." });
     } else {
         //ask for confirmation
-        document.getElementById('modelParagraph2').innerText = "Are you sure you want to delete users " + emails.toString() + "?";
+        document.getElementById('modelParagraph2').innerText = "Are you sure you want to delete accounts " + emails.toString() + "?";
         document.getElementById('modelParagraph2').name = JSON.stringify(emails);
         $('#modal2').modal('open');
     }
@@ -130,7 +130,7 @@ $("#modalButtonYes2").click(function (e) {
     }).done(function (data) {
         var result = $.parseJSON(data);
         if (result.error) {
-            M.toast({ html: "Error deleting user!" });
+            M.toast({ html: "Error deleting account!" });
         }
         else {
             window.open('accounts.html', '_self');

@@ -77,15 +77,13 @@
             }
         
         }
-        else if($name=="updateAccountInfo"){
+        else if($name=="updateContactInfo"){
             $oldemail = $_POST["oldEmail"];
             $data = $_POST["newdata"];
 
             $newemail = $data["email"];
             $name = $data["name"];
-            $website = $data["website"];
             $telephone1 = $data["telephone1"];
-            $telephone2 = $data["telephone2"];
 
             $billingstreetaddr=$data["billingstreetaddr"];
             $billingcityaddr = $data["billingcityaddr"];
@@ -93,44 +91,24 @@
             $billingpostal = $data["billingpostal"];
             $billingcountry = $data["billingcountry"];
 
-            $shippingstreetaddr = $data["shippingstreetaddr"];
-            $shippingcityaddr = $data["shippingcityaddr"];
-            $shippingstate = $data["shippingstate"];
-            $shippingpostal = $data["shippingpostal"];
-            $shippingcountry = $data["shippingcountry"];
-
-            $indsustryType = $data["indsustryType"];
-            $usertype = $data["usertype"];
-            $gstno = $data["gstno"];
+            $accountid = $data["accountid"];
             $desc = $data["desc"];
             $assigneduser = $data["assigneduser"];
 
-            $query1 = "UPDATE `accounttable` SET 
-            `accountemail` = '$newemail',
-            `accountname` = '$name',
-            `accountwebsite` = '$website',
-            `accountphone1` = '$telephone1',
-            `accountphone2` = '$telephone2',
-
-            `accountbillingstreet` = '$billingstreetaddr',
-            `accountbillingcity` = '$billingcityaddr',
-            `accountbillingstate` = '$billingstate',
-            `accountbillingpostal` = '$billingpostal',
-            `accountbillingcountry` = '$billingcountry',
-
-            `accountshippingstreet` = '$shippingstreetaddr',
-            `accountshippingcity` = '$shippingcityaddr',
-            `accountshippingstate` = '$shippingstate',
-            `accountshippingpostal` = '$shippingpostal',
-            `accountshippingcountry` = '$shippingcountry',
-
-            `accountType` = '$usertype',
-            `accountGST` = '$gstno',
-            `accountIndustry` = '$indsustryType',
-            `accountDescription` = '$desc',
-            `assigneduseremail` = '$assigneduser'
-
-             WHERE `accounttable`.`accountemail` = '$oldemail'";
+            $query1 = "
+            UPDATE `contacttable` SET 
+            `contemail` = '$newemail',                         
+            `contname` = '$name', 
+            `contphone` = '$telephone1', 
+            `contstreet` = '$billingstreetaddr',
+            `contcity` = '$billingcityaddr', 
+            `contstate` = '$billingstate', 
+            `constpostal` = '$billingpostal',
+            `constcountry` = '$billingcountry',
+            `constdesc` = '$desc',
+            `constaccountemail` = '$accountid',
+            `constassigneduser` = '$assigneduser'
+             WHERE `contacttable`.`contemail` = '$oldemail' ";
 
             $res1= mysqli_query($db, $query1);
 
@@ -152,9 +130,9 @@
             }
 
         }
-        else if($name=="deleteAccount"){
+        else if($name=="deleteContact"){
             $email = $_POST["email"];
-            $query = "DELETE from accounttable where accountemail='$email'";
+            $query = "DELETE from contacttable where contemail='$email'";
             $res1= mysqli_query($db, $query);
 
             if($res1){
@@ -165,19 +143,19 @@
                 echo json_encode($arr);
             }
             else{
-                $error="Error Deleting account...";
+                $error="Error Deleting contact...";
                 $arr = array(
                     "error" => $error.$db->error
                 );
                 echo json_encode($arr);
             }
         }
-        else if($name=="deleteMultipleAccounts"){
+        else if($name=="deleteMultipleContacts"){
             $emails = $_POST["email"];
             $string = rtrim(implode("','", $emails), "','");
            
             $string = "'".$string."'";
-            $query = "DELETE from accounttable where accountemail in ( $string ) ";
+            $query = "DELETE from contacttable where contemail in ( $string ) ";
             $res1= mysqli_query($db, $query);
 
             if($res1){
@@ -188,7 +166,7 @@
                 echo json_encode($arr);
             }
             else{
-                $error="Error Deleting account...";
+                $error="Error Deleting contact...";
                 $arr = array(
                     "error" => $error.$db->error
                 );

@@ -96,7 +96,7 @@ $("#modalButtonYes").click(function (e) {
 });
 
 
-$("#act-on-multiple-select").click(function (e) {
+$("#delete-selected").click(function (e) {
     var emails = [];
     var docmails = document.getElementsByTagName("tr");
     for (var i = 1; i < docmails.length; i++) {

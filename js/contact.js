@@ -83,8 +83,8 @@ $("#modalButtonYes").click(function (e) {
     var email = e.currentTarget.name;
     $.ajax({
         type: "POST",
-        url: SERVER_PATH + "account.php",
-        data: { "name": "deleteAccount", "email": email }
+        url: SERVER_PATH + "contact.php",
+        data: { "name": "deleteContact", "email": email }
     }).done(function (data) {
         var result = $.parseJSON(data);
         document.getElementById('modelParagraph').innerText = "";
@@ -93,13 +93,13 @@ $("#modalButtonYes").click(function (e) {
             M.toast({ html: "Error deleting" });
         }
         else {
-            window.open('accounts.html', '_self');
+            window.open('contacts.html', '_self');
         }
     });
 });
 
 
-$("#act-on-multiple-select").click(function (e) {
+$("#delete-selected").click(function (e) {
     var emails = [];
     var docmails = document.getElementsByTagName("tr");
     for (var i = 1; i < docmails.length; i++) {
@@ -109,10 +109,10 @@ $("#act-on-multiple-select").click(function (e) {
             emails.push(email);
     }
     if (emails.length == 0) {
-        M.toast({ html: "Please select users to delete.." });
+        M.toast({ html: "Please select contacts to delete.." });
     } else {
         //ask for confirmation
-        document.getElementById('modelParagraph2').innerText = "Are you sure you want to delete users " + emails.toString() + "?";
+        document.getElementById('modelParagraph2').innerText = "Are you sure you want to delete contacts " + emails.toString() + "?";
         document.getElementById('modelParagraph2').name = JSON.stringify(emails);
         $('#modal2').modal('open');
     }
@@ -125,15 +125,15 @@ $("#modalButtonYes2").click(function (e) {
     document.getElementById('modelParagraph2').name = "";
     $.ajax({
         type: "POST",
-        url: SERVER_PATH + "account.php",
-        data: { "name": "deleteMultipleAccounts", "email": emails }
+        url: SERVER_PATH + "contact.php",
+        data: { "name": "deleteMultipleContacts", "email": emails }
     }).done(function (data) {
         var result = $.parseJSON(data);
         if (result.error) {
-            M.toast({ html: "Error deleting user!" });
+            M.toast({ html: "Error deleting contacts!" });
         }
         else {
-            window.open('accounts.html', '_self');
+            window.open('contacts.html', '_self');
         }
     });
 });
@@ -147,7 +147,6 @@ $(document).ready(function () {
         data: { name: "getallcontacts" }
     }).done(function (data) {
         var result = $.parseJSON(data);
-        console.log(result);
         if (result.error) {
             M.toast({ html: "Loading Error!" });
         }

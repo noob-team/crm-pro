@@ -21,7 +21,6 @@ $(document).ready(function () {
         }
         else {
             var userInfo = result.userInfo;
-            console.log(userInfo);
             var userCard = `
             <div class="row">
             <div class="col col s12 m12 l12">
@@ -63,7 +62,7 @@ $(document).ready(function () {
             <div class="col s12 m12 l12">
                 <div class="card">
                     <div class="card-content">
-                        <span class="card-title">Billing Address</span>
+                        <span class="card-title">Address</span>
                         <div class="row">
                             <div class="input-field col s12 m6">
                                 <p class="grey-text">Street Address</p>  

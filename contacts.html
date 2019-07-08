@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- font awesome icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- sidebar and navbar css -->
+    <link rel="stylesheet" href="./css/sidebarAndNavBar.css">
+
+    <link rel="stylesheet" href="./css/user-styles.css">
+
+    <title>Contacts</title>
+
+</head>
+
+<body>
+
+
+    <div class="container">
+
+
+        <h4 class="center indigo-text text-darken-3 ">Contacts</h4>
+
+        <div class="col s12">
+            <form class="col offset-s1 s7">
+                <div class="row">
+                    <div class="input-field col offset-m2 s12 m8">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" name="search" id="searchBar" class="validate">
+                        <label for="searchBar">Search</label>
+                    </div>
+                </div>
+            </form>
+            <div class="fixed-action-btn">
+                <!-- modal trigger -->
+                <a id="add-btn" class="btn-floating btn btn-large waves-effect waves-light indigo"
+                    href="create_contact.html">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+        </div>
+        <div id="act-on-multiple-select" class="center">
+            <button id="delete-selected" class="btn-flat tooltipped" data-position="bottom"
+                data-tooltip="Delete Selected Items"><i class="fa fa-trash"
+                    style="font-size: 25px; color: red;"></i></button>
+        </div>
+        <!-- accounts display -->
+        <table class="centered highlight striped responsive-table">
+            <thead>
+                <tr>
+                    <th>
+                        <label>
+                            <input id="selectAll" type="checkbox" class="filled-in" />
+                            <span></span>
+                        </label>
+                    </th>
+                    <th>Name</th>
+                    <th>Account</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h4>Confirm Delete</h4>
+                <p id="modelParagraph"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-action modal-close waves-effect waves-red btn-flat ">No</button>
+                <button id="modalButtonYes"
+                    class="modal-action modal-close waves-effect waves-green btn-flat ">Yes</button>
+            </div>
+        </div>
+
+
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+                <h4>Confirm Delete</h4>
+                <p id="modelParagraph2"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-action modal-close waves-effect waves-red btn-flat ">No</button>
+                <button id="modalButtonYes2"
+                    class="modal-action modal-close waves-effect waves-green btn-flat ">Yes</button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+
+
+    </script>
+
+
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- include sidebar and navbar -->
+    <script src="./js/sidebarAndNavBar.js"></script>
+    <script src="js/auth.js"></script>
+    <!-- account-form modal content setup with search -->
+    <script src="./js/contact.js"></script>
+
+</body>
+
+</html>

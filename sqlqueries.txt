@@ -86,3 +86,15 @@ CREATE TABLE `crm`.`accounttable` ( `accountemail` VARCHAR(50) NOT NULL , `accou
 
 ALTER TABLE `accounttable` ADD FOREIGN KEY (`assigneduseremail`) REFERENCES `usertable`(`useremail`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
+_________________________________________________________________________________________
+
+
+CONTACT_TABLE
+
+CREATE TABLE `crm`.`contacttable` ( `contemail` VARCHAR(50) NOT NULL , `contname` VARCHAR(50) NOT NULL , `contphone` BIGINT NOT NULL , `contstreet` VARCHAR(250) NOT NULL , `contcity` VARCHAR(250) NOT NULL , `contstate` VARCHAR(250) NOT NULL , `constpostal` BIGINT NOT NULL , `constcountry` VARCHAR(250) NOT NULL , `constdesc` VARCHAR(1000) NOT NULL , `constaccountemail` VARCHAR(50) NOT NULL , `constassigneduser` VARCHAR(50) NOT NULL , PRIMARY KEY (`contemail`)) ENGINE = InnoDB;
+
+ALTER TABLE `contacttable` ADD CONSTRAINT `contactone` FOREIGN KEY (`constassigneduser`) REFERENCES `usertable`(`useremail`) ON DELETE RESTRICT ON UPDATE CASCADE; 
+ALTER TABLE `contacttable` ADD CONSTRAINT `conttwo` FOREIGN KEY (`constaccountemail`) REFERENCES `accounttable`(`accountemail`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+
+INSERT INTO `contacttable` (`contemail`, `contname`, `contphone`, `contstreet`, `contcity`, `contstate`, `constpostal`, `constcountry`, `constdesc`, `constaccountemail`, `constassigneduser`) VALUES ('email@email.com', 'name', '123456789', 'street', 'city', 'state', '12', 'country', 'dewc', 'asdas@gmail.com', 'rahuldshetty@gmail.com');

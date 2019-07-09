@@ -11,7 +11,7 @@ $(document).ready(function () {
     }).done(function (data) {
         var result = $.parseJSON(data);
         if (result.error) {
-            M.toast({ html: "Error Loading teams.." });
+            M.toast({ html: "Error Loading.." });
         }
         else {
             //USER DROP DOWN LIST

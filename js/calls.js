@@ -80,17 +80,17 @@ $("#modalButtonYes").click(function (e) {
     var email = e.currentTarget.name;
     $.ajax({
         type: "POST",
-        url: SERVER_PATH + "user.php",
-        data: { "name": "deleteUser", "email": email }
+        url: SERVER_PATH + "call.php",
+        data: { "name": "deleteCall", "email": email }
     }).done(function (data) {
         var result = $.parseJSON(data);
         document.getElementById('modelParagraph').innerText = "";
         document.getElementById('modalButtonYes').name = "";
         if (result.error) {
-            M.toast({ html: "Error deleting user " });
+            M.toast({ html: "Error deleting " });
         }
         else {
-            window.open('users.html', '_self');
+            window.open('calls.html', '_self');
         }
     });
 });
@@ -98,19 +98,24 @@ $("#modalButtonYes").click(function (e) {
 
 $("#delete-selected").click(function (e) {
     var emails = [];
+    var names = [];
     var docmails = document.getElementsByTagName("tr");
     for (var i = 1; i < docmails.length; i++) {
         var checkbox = docmails[i].getElementsByClassName('checkbox')[0];
-        var email = docmails[i].getElementsByClassName('website_td')[0].innerText;
-        if (checkbox.checked)
+        var emailobj = docmails[i].getElementsByClassName('name_td')[0];
+        var email = (emailobj.attributes[1].value);
+        if (checkbox.checked) {
             emails.push(email);
+            names.push(docmails[i].getElementsByClassName('name_td')[0].innerText);
+        }
     }
     if (emails.length == 0) {
-        M.toast({ html: "Please select users to delete.." });
+        M.toast({ html: "Please select calls to delete.." });
     } else {
         //ask for confirmation
-        document.getElementById('modelParagraph2').innerText = "Are you sure you want to delete users " + emails.toString() + "?";
+        document.getElementById('modelParagraph2').innerText = "Are you sure you want to delete call " + names.toString() + "?";
         document.getElementById('modelParagraph2').name = JSON.stringify(emails);
+        console.log(document.getElementById('modelParagraph2'));
         $('#modal2').modal('open');
     }
 });
@@ -121,15 +126,15 @@ $("#modalButtonYes2").click(function (e) {
     document.getElementById('modelParagraph2').name = "";
     $.ajax({
         type: "POST",
-        url: SERVER_PATH + "user.php",
-        data: { "name": "deleteMultipleUsers", "email": emails }
+        url: SERVER_PATH + "call.php",
+        data: { "name": "deleteMultipleCalls", "email": emails }
     }).done(function (data) {
         var result = $.parseJSON(data);
         if (result.error) {
-            M.toast({ html: "Error deleting user " });
+            M.toast({ html: "Error deleting calls " });
         }
         else {
-            window.open('users.html', '_self');
+            window.open('calls.html', '_self');
         }
     });
 });
@@ -175,7 +180,7 @@ $(document).ready(function () {
                             <span></span>
                         </label>
                     </td>
-                    <td class="searchItems name_td"><a class="grey-text text-darken-4" href="showcall.html?email=${id}">${name}</a></td>
+                    <td class="searchItems name_td" value="${id}"><a class="grey-text text-darken-4"  href="showcall.html?email=${id}">${name}</a></td>
                     ${parentTemplate}
                     <td class="searchItems status_td">${status}</td>
                     <td class="searchItems date">${date}</td>
@@ -186,7 +191,12 @@ $(document).ready(function () {
                         <a href="editcall.html?email=${email}" class="tooltipped edit" data-position="bottom"
                             data-tooltip="edit"><i class="fa fa-edit"></i></a>
                         <button data-target="modal" class="btn-flat singleDelete modal-trigger waves-effect waves-light" name='${email}'><i
-                                class="fa fa-trash"></i></button>
+                                class="fa fa-trash">
+                                    <div class="hidden">
+                                        <input type="hidden" value="${name}">
+                                        <input type="hidden" value="${id}"
+                                    </div>
+                                </i></button>
                     </td>
                 </tr>
                 `;
@@ -195,8 +205,11 @@ $(document).ready(function () {
             document.getElementsByTagName("tbody")[0].innerHTML = tableRows;
 
             $(".singleDelete").click(function (e) {
-                document.getElementById('modelParagraph').innerText = "Are you sure you want to delete user " + e.currentTarget.name + " ?";
-                document.getElementById('modalButtonYes').name = e.currentTarget.name;
+                var child = e.currentTarget.children[1].children[0].children;
+                var name = child[0].value;
+                var id = child[1].value;
+                document.getElementById('modelParagraph').innerText = "Are you sure you want to delete user " + name + " ?";
+                document.getElementById('modalButtonYes').name = id;
             });
         }
 

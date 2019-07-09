@@ -128,13 +128,13 @@ ALTER TABLE `calltable` ADD FOREIGN KEY (`callparentname`) REFERENCES `parenttab
 
 CREATE TABLE `crm`.`calluserattendees` ( `callid` INT NOT NULL , `useremail` VARCHAR(50) NOT NULL ) ENGINE = InnoDB;
 
-ALTER TABLE `calluserattendees` ADD FOREIGN KEY (`callid`) REFERENCES `calltable`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE; ALTER TABLE `calluserattendees` ADD FOREIGN KEY (`useremail`) REFERENCES `usertable`(`useremail`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `calluserattendees` ADD FOREIGN KEY (`callid`) REFERENCES `calltable`(`id`) ON DELETE CASCADE ON UPDATE CASCADE; ALTER TABLE `calluserattendees` ADD FOREIGN KEY (`useremail`) REFERENCES `usertable`(`useremail`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `calluserattendees` ADD PRIMARY KEY( `callid`, `useremail`);
 
 
 CREATE TABLE `crm`.`callcontactattendees` ( `callid` INT NOT NULL , `contemail` VARCHAR(50) NOT NULL ) ENGINE = InnoDB;
 ALTER TABLE `callcontactattendees` ADD PRIMARY KEY( `callid`, `contemail`);
-ALTER TABLE `callcontactattendees` ADD FOREIGN KEY (`callid`) REFERENCES `calltable`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE; ALTER TABLE `callcontactattendees` ADD FOREIGN KEY (`contemail`) REFERENCES `contacttable`(`contemail`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `callcontactattendees` ADD FOREIGN KEY (`callid`) REFERENCES `calltable`(`id`) ON DELETE CASCADE ON UPDATE CASCADE; ALTER TABLE `callcontactattendees` ADD FOREIGN KEY (`contemail`) REFERENCES `contacttable`(`contemail`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 

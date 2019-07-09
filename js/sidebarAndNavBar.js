@@ -24,8 +24,6 @@ document.body.innerHTML = `
         <li class="divider"></li>
         <li><a href="#!" style = "color: var(--indigo); text-align: center;">Email</a></li>
         <li class="divider"></li>
-        <li><a href="#!" style = "color: var(--indigo); text-align: center;">Meeting</a></li>
-        <li class="divider"></li>
         <li><a href="create_call.html" style = "color: var(--indigo); text-align: center;">Call</a></li>
         <li class="divider"></li>
         <li><a href="#!" style = "color: var(--indigo); text-align: center;">Task</a></li>
@@ -42,7 +40,6 @@ document.body.innerHTML = `
         <li><a href="contacts.html"><i class="fa fa-address-book"></i>CONTACTS</a></li>
         <li><a href=""><i class="fa fa-envelope"></i>EMAILS</a></li>
         <li><a href=""><i class="fa fa-calendar-week"></i>CALENDER</a></li>
-        <li><a href=""><i class="fas fa-handshake"></i>MEETINGS</a></li>
         <li><a href="calls.html"><i class="fa fa-phone"></i>CALLS</a></li>
         <li><a href=""><i class="fa fa-tasks"></i>TASKS</a></li>
         <li><a href="users.html"><i class="fa fa-user"></i>USERS</a></li>
@@ -58,7 +55,6 @@ document.body.innerHTML = `
             <li><a href="contacts.html"><i class="fa fa-address-book"></i>CONTACTS</a></li>
             <li><a href=""><i class="fa fa-envelope"></i>EMAILS</a></li>
             <li><a href=""><i class="fa fa-calendar-week"></i>CALENDER</a></li>
-            <li><a href=""><i class="fas fa-handshake"></i>MEETINGS</a></li>
             <li><a href="calls.html"><i class="fa fa-phone"></i>CALLS</a></li>
             <li><a href=""><i class="fa fa-tasks"></i>TASKS</a></li>
             <li><a href="users.html"><i class="fa fa-user"></i>USERS</a></li>

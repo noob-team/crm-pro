@@ -159,84 +159,106 @@
             }
         
         }
-        else if($name=="updateAccountInfo"){
-            $oldemail = $_POST["oldEmail"];
-            $data = $_POST["newdata"];
-
-            $newemail = $data["email"];
+        else if($name=="updateCallInfo"){
+           
+            $data = $_POST["data"];
+            $id = $data["id"];
             $name = $data["name"];
-            $website = $data["website"];
-            $telephone1 = $data["telephone1"];
-            $telephone2 = $data["telephone2"];
-
-            $billingstreetaddr=$data["billingstreetaddr"];
-            $billingcityaddr = $data["billingcityaddr"];
-            $billingstate = $data["billingstate"];
-            $billingpostal = $data["billingpostal"];
-            $billingcountry = $data["billingcountry"];
-
-            $shippingstreetaddr = $data["shippingstreetaddr"];
-            $shippingcityaddr = $data["shippingcityaddr"];
-            $shippingstate = $data["shippingstate"];
-            $shippingpostal = $data["shippingpostal"];
-            $shippingcountry = $data["shippingcountry"];
-
-            $indsustryType = $data["indsustryType"];
-            $usertype = $data["usertype"];
-            $gstno = $data["gstno"];
             $desc = $data["desc"];
+            $status = $data["status"];
+            $direction = $data["direction"];
+
+            $parent = $data["parent"];
+            $parentid = $data["parentid"];
             $assigneduser = $data["assigneduser"];
+            
+            $startdate = $data["startdate"];
+            $starttime = $data["starttime"];
+            $enddate = $data["enddate"];
+            $endtime = $data["endtime"];
 
-            $query1 = "UPDATE `accounttable` SET 
-            `accountemail` = '$newemail',
-            `accountname` = '$name',
-            `accountwebsite` = '$website',
-            `accountphone1` = '$telephone1',
-            `accountphone2` = '$telephone2',
+            $userAtt=null;
+            $contAtt=null;
 
-            `accountbillingstreet` = '$billingstreetaddr',
-            `accountbillingcity` = '$billingcityaddr',
-            `accountbillingstate` = '$billingstate',
-            `accountbillingpostal` = '$billingpostal',
-            `accountbillingcountry` = '$billingcountry',
+            if(isset($data["userAtt"]))
+                $userAtt = $data["userAtt"];
+            if(isset($data["contAtt"]))
+                $contAtt = $data["contAtt"];
 
-            `accountshippingstreet` = '$shippingstreetaddr',
-            `accountshippingcity` = '$shippingcityaddr',
-            `accountshippingstate` = '$shippingstate',
-            `accountshippingpostal` = '$shippingpostal',
-            `accountshippingcountry` = '$shippingcountry',
 
-            `accountType` = '$usertype',
-            `accountGST` = '$gstno',
-            `accountIndustry` = '$indsustryType',
-            `accountDescription` = '$desc',
-            `assigneduseremail` = '$assigneduser'
+            $duraiton = $data["duration"];
+            $emailinmins = $data["emailtimings"];
 
-             WHERE `accounttable`.`accountemail` = '$oldemail'";
+            $query = "
+            UPDATE `calltable` SET 
+                `callname` = '$name',
+                `calldesc` = '$desc',
+                `callparentname` = '$parent',
+                `callparentid` = '$parentid',
+                `callstatus` = '$status', 
+                `calldirection` = '$direction',
+                `callstartdate` = '$startdate', `callstarttime` = '$starttime',
+                `callenddate` = '$enddate', `callendtime` = '$endtime', 
+                `callduration` = '$duraiton',
+                `callemailstatus` = '$emailinmins',
+                `assigneduser` = '$assigneduser' WHERE `calltable`.`id` = $id 
+            ";
 
-            $res1= mysqli_query($db, $query1);
+            $res = mysqli_query($db,$query);
 
-            if($res1){
+            if($res){
+                $query = "DELETE FROM `calluserattendees` where callid = $id ";
+                $res2 = mysqli_query($db,$query);
+                if($res2)
+                    if($userAtt){
+                        foreach($userAtt as $user){
+                            $querysub ="INSERT INTO `calluserattendees` (`callid`, `useremail`) VALUES ('$id', '$user')";
+                            $res = mysqli_query($db, $querysub); 
+                            if(!$res){
+                                $error="Error creating user attendee...".$db->error;
+                                $arr = array(
+                                    "error" => $error
+                                );
+                                echo json_encode($arr);
+                            }
+                        }
+                    }
+                $query = "DELETE FROM `callcontactattendees` where callid = $id "; 
+                $res2 = mysqli_query($db,$query);
+                if($res2)
+                    if($contAtt){
+                        foreach($contAtt as $user){
+                            $querysub ="INSERT INTO `callcontactattendees` (`callid`, `contemail`) VALUES ('$id', '$user')";
+                            $res = mysqli_query($db, $querysub); 
+                            if(!$res){
+                                $error="Error creating contact attendee...".$db->error;
+                                $arr = array(
+                                    "error" => $error
+                                );
+                                echo json_encode($arr);
+                            }
+                        }
+                }
                 
-                $sucess="Updates Saved.";
+                $sucess="Update Successful";
                 $arr = array(
                     "success" => $sucess
                 );
                 echo json_encode($arr);
-
             }
             else{
-                $error="Error Updating account...";
+                $error="Error Deleting account...";
                 $arr = array(
-                    "error" => $db->error
+                    "error" => $error.$db->error
                 );
                 echo json_encode($arr);
             }
 
+
         }
-        else if($name=="deleteAccount"){
+        else if($name=="deleteCall"){
             $email = $_POST["email"];
-            $query = "DELETE from accounttable where accountemail='$email'";
+            $query = "DELETE from calltable where id='$email'";
             $res1= mysqli_query($db, $query);
 
             if($res1){
@@ -254,12 +276,12 @@
                 echo json_encode($arr);
             }
         }
-        else if($name=="deleteMultipleAccounts"){
+        else if($name=="deleteMultipleCalls"){
             $emails = $_POST["email"];
             $string = rtrim(implode("','", $emails), "','");
            
             $string = "'".$string."'";
-            $query = "DELETE from accounttable where accountemail in ( $string ) ";
+            $query = "DELETE from calltable where id in ( $string ) ";
             $res1= mysqli_query($db, $query);
 
             if($res1){

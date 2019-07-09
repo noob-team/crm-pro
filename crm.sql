@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2019 at 04:47 PM
+-- Generation Time: Jul 09, 2019 at 10:13 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -102,8 +102,9 @@ CREATE TABLE `callcontactattendees` (
 --
 
 INSERT INTO `callcontactattendees` (`callid`, `contemail`) VALUES
-(24, 'suraj@gmail.com'),
-(25, 'suraj@gmail.com');
+(50, 'rmm@gmail.com'),
+(50, 'suraj@gmail.com'),
+(52, 'rmm@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -133,9 +134,8 @@ CREATE TABLE `calltable` (
 --
 
 INSERT INTO `calltable` (`id`, `callname`, `calldesc`, `callparentname`, `callparentid`, `callstatus`, `calldirection`, `callstartdate`, `callstarttime`, `callenddate`, `callendtime`, `callduration`, `callemailstatus`, `assigneduser`) VALUES
-(23, 'rahul', 'asdasd', 'accounttable', 'rahul@gmail.com', 'Planned', '', '2019-07-23', '17:04:00', '2019-07-21', '17:04:00', 45, 120, 'rahuldshetty@gmail.com'),
-(24, 'Rahul', 'Desc', 'accounttable', 'dcvcbcv@gmail.comn', 'Planned', 'Inbound', '2019-07-15', '18:05:00', '2019-07-23', '16:06:00', 45, 120, 'surabh@gmail.com'),
-(25, 'Call for details', '', 'contacttable', 'suraj@gmail.com', 'Held', 'Inbound', '2019-07-17', '06:11:00', '2019-07-17', '18:11:00', 45, 60, 'surabh@gmail.com');
+(50, 'asdas', 'dasd', 'accounttable', 'fdgdfg@gmaul.com', 'Planned', 'Inbound', '2019-07-25', '17:41:00', '2019-07-22', '17:41:00', 60, 120, 'rahuldshetty@gmail.com'),
+(52, 'nnmmms', 'adfdsdfg', 'contacttable', 'suraj@gmail.com', 'Planned', 'Outbound', '2019-07-23', '04:42:00', '2019-07-27', '16:42:00', 45, 60, 'surabh@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -153,8 +153,8 @@ CREATE TABLE `calluserattendees` (
 --
 
 INSERT INTO `calluserattendees` (`callid`, `useremail`) VALUES
-(24, 'rahuldshetty@gmail.com'),
-(25, 'rahuldshetty@gmail.com');
+(50, 'surabh@gmail.com'),
+(52, 'rahuldshetty@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -181,6 +181,7 @@ CREATE TABLE `contacttable` (
 --
 
 INSERT INTO `contacttable` (`contemail`, `contname`, `contphone`, `contstreet`, `contcity`, `contstate`, `constpostal`, `constcountry`, `constdesc`, `constaccountemail`, `constassigneduser`) VALUES
+('rmm@gmail.com', 'Reevan', 65456465, '2312', '312', '23', 1231, '1231', 'dec', 'asdas@gmail.com', 'surabh@gmail.com'),
 ('suraj@gmail.com', 'Suraj', 911, 'street', 'city', 'state', 54654, '54654', 'desvc', 'rahul@gmail.com', 'surabh@gmail.com');
 
 -- --------------------------------------------------------
@@ -348,7 +349,7 @@ ALTER TABLE `admintable`
 --
 ALTER TABLE `callcontactattendees`
   ADD PRIMARY KEY (`callid`,`contemail`),
-  ADD KEY `contemail` (`contemail`);
+  ADD KEY `callcontactattendees_ibfk_2` (`contemail`);
 
 --
 -- Indexes for table `calltable`
@@ -363,7 +364,7 @@ ALTER TABLE `calltable`
 --
 ALTER TABLE `calluserattendees`
   ADD PRIMARY KEY (`callid`,`useremail`),
-  ADD KEY `useremail` (`useremail`);
+  ADD KEY `calluserattendees_ibfk_2` (`useremail`);
 
 --
 -- Indexes for table `contacttable`
@@ -433,7 +434,7 @@ ALTER TABLE `admintable`
 -- AUTO_INCREMENT for table `calltable`
 --
 ALTER TABLE `calltable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `roletable`
@@ -467,8 +468,8 @@ ALTER TABLE `accounttable`
 -- Constraints for table `callcontactattendees`
 --
 ALTER TABLE `callcontactattendees`
-  ADD CONSTRAINT `callcontactattendees_ibfk_1` FOREIGN KEY (`callid`) REFERENCES `calltable` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `callcontactattendees_ibfk_2` FOREIGN KEY (`contemail`) REFERENCES `contacttable` (`contemail`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `callcontactattendees_ibfk_1` FOREIGN KEY (`callid`) REFERENCES `calltable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `callcontactattendees_ibfk_2` FOREIGN KEY (`contemail`) REFERENCES `contacttable` (`contemail`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `calltable`
@@ -481,8 +482,8 @@ ALTER TABLE `calltable`
 -- Constraints for table `calluserattendees`
 --
 ALTER TABLE `calluserattendees`
-  ADD CONSTRAINT `calluserattendees_ibfk_1` FOREIGN KEY (`callid`) REFERENCES `calltable` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `calluserattendees_ibfk_2` FOREIGN KEY (`useremail`) REFERENCES `usertable` (`useremail`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `calluserattendees_ibfk_1` FOREIGN KEY (`callid`) REFERENCES `calltable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `calluserattendees_ibfk_2` FOREIGN KEY (`useremail`) REFERENCES `usertable` (`useremail`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `contacttable`

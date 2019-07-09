@@ -168,6 +168,7 @@ $(document).ready(function () {
 
             $(function () {
                 $("#modal-btn").on('click', function () {
+
                     var data = {
                         "name": document.getElementById('name').value,
                         "email": document.getElementById('emailid').value,

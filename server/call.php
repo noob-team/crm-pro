@@ -83,11 +83,29 @@
             }
 
         }
-        else if($name == "getallaccounts" ){
-            $query = "SELECT * FROM accounttable";
+        else if($name == "getallcalls" ){
+            $query = "SELECT * FROM calltable C,parenttable P,usertable U where C.assigneduser=U.useremail and C.callparentname=P.parenttablename";
             $results = mysqli_query($db, $query);
-            $data = mysqli_fetch_all($results);            
-            echo json_encode($data);             
+            $data = mysqli_fetch_all($results);     
+
+            $parent = array();
+            foreach($data as $row){
+                $tablename = $row[15];
+                $tableid = $row[16];
+                $email = $row[4];
+                $query1 = "Select * from $tablename T where T.$tableid = '$email'";
+                $res = mysqli_query($db, $query1);
+                $res = mysqli_fetch_row($res);    
+                $parent[] = $res;
+            }
+
+            $arr = array(
+                "data" => $data,
+                "parent"=> $parent
+            );
+
+            
+            echo json_encode($arr);             
         }
         else if($name == "getaccount"){
             $email = $_POST['email'];

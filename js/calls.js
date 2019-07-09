@@ -139,21 +139,35 @@ $(document).ready(function () {
     $('.modal').modal();
     $.ajax({
         type: "POST",
-        url: SERVER_PATH + "user.php",
-        data: { name: "getallusers" }
+        url: SERVER_PATH + "call.php",
+        data: { name: "getallcalls" }
     }).done(function (data) {
         var result = $.parseJSON(data);
         if (result.error) {
             M.toast({ html: "Loading Error!" });
         }
         else {
+            var parent = result.parent;
+            var result = result.data;
+            console.log(parent, result);
             var tableRows = "";
             for (var i = 0; i < result.length; i++) {
                 var email = result[i][0];
+                var id = result[i][0];
                 var name = result[i][1];
-                var phone = result[i][2];
+                var status = result[i][5];
+                var date = result[i][7];
 
 
+                var parentitem = parent[i][1];
+                var parentemail = parent[i][0];
+                var parentTemplate = ``;
+                if (result[i][14] == 'Account') {
+                    parentTemplate = ` <td class="searchItems website_td"><a class="grey-text text-darken-4" href="showaccount.html?email=${parentemail}">${parentitem}</a></td>`;
+                }
+                else if (result[i][14] == "Contact") {
+                    parentTemplate = ` <td class="searchItems website_td"><a class="grey-text text-darken-4" href="showcontact.html?email=${parentemail}">${parentitem}</a></td>`;
+                }
                 var template = `
                 <tr>
                     <td>
@@ -162,9 +176,11 @@ $(document).ready(function () {
                             <span></span>
                         </label>
                     </td>
-                    <td class="searchItems name_td"><a class="grey-text text-darken-4" href="showuser.html?email=${email}">${name}</a></td>
-                    <td class="searchItems website_td"><a class="grey-text text-darken-4" href="showuser.html?email=${email}">${email}</a></td>
-                    <td class="searchItems type_td">${phone}</td>
+                    <td class="searchItems name_td"><a class="grey-text text-darken-4" href="showcall.html?email=${id}">${name}</a></td>
+                    ${parentTemplate}
+                    <td class="searchItems status_td">${status}</td>
+                    <td class="searchItems date">${date}</td>
+                    <td class="searchItems website_td"><a class="grey-text text-darken-4" href="showuser.html?email=${result[i][13]}">${result[i][18]}</a></td>
                     <td>
                         <a href="showcall.html?email=${email}" class="tooltipped  view" data-position="bottom"
                             data-tooltip="view"><i class="fa fa-eye"></i></a>

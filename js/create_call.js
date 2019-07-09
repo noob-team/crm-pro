@@ -307,13 +307,12 @@ $(document).ready(function () {
                         "contAtt": contAtendeList
 
                     };
-                    console.log(data);
+
                     $.ajax({
                         type: "POST",
                         url: SERVER_PATH + "call.php",
                         data: { "name": 'createcall', 'data': data }
                     }).done(function (data) {
-                        console.log(data);
                         var result = $.parseJSON(data);
                         if (result.error) {
                             M.toast({ html: result.error });

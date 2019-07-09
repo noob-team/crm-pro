@@ -48,7 +48,7 @@ $(document).ready(function () {
             if (userInfo[3].includes("contact")) {
                 //contact parent
                 let templaye = `
-                <div class="input-field col s12 m6">
+                <div class="input-field col s12 m12">
                     <p class="grey-text">Parent</p>  
                     <a href="showcontact.html?email=${superparent[0]}" class="grey-text" >${superparent[1]}</a>
                 </div>
@@ -58,7 +58,7 @@ $(document).ready(function () {
             else if (userInfo[3].includes("account")) {
                 //account parent
                 let templaye = `
-                <div class="input-field col s12 m6">
+                <div class="input-field col s12 m12">
                     <p class="grey-text">Parent</p>  
                     <a href="showaccount.html?email=${superparent[0]}" class="grey-text" >${superparent[1]}</a>
                 </div>
@@ -71,7 +71,7 @@ $(document).ready(function () {
 
             let users = `
             <div class="row">
-                <div class="input-field col s12 m6">
+                <div class="input-field col s12 m12">
                     <p class="grey-text">Assigned User</p>  
                     <a href="showuser.html?email=${userInfo[14]}" class="grey-text" >${userInfo[15]}</a>
                 </div>
@@ -84,7 +84,7 @@ $(document).ready(function () {
                     smalltemp = ' <p class="grey-text">Users:</p>  '
                 }
                 let temp = `
-                <div class="input-field col s12 m6">${smalltemp}
+                <div class="input-field col s12 m12">${smalltemp}
                     <a href="showuser.html?email=${userAtt[i][2]}" class="grey-text" >${userAtt[i][3]}</a>
                 </div>
             `;
@@ -96,7 +96,7 @@ $(document).ready(function () {
                     smalltemp = ' <p class="grey-text">Contacts:</p>  '
                 }
                 let temp = `
-                <div class="input-field col s12 m6">${smalltemp}
+                <div class="input-field col s12 m12">${smalltemp}
                     <a href="showcontact.html?email=${constAtt[i][2]}" class="grey-text" >${constAtt[i][3]}</a>
                 </div>
             `;

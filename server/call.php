@@ -26,8 +26,13 @@
             $enddate = $data["enddate"];
             $endtime = $data["endtime"];
 
-            $userAtt = $data["userAtt"];
-            $contAtt = $data["contAtt"];
+            $userAtt=null;
+            $contAtt=null;
+
+            if(isset($data["userAtt"]))
+                $userAtt = $data["userAtt"];
+            if(isset($data["contAtt"]))
+                $contAtt = $data["contAtt"];
 
 
             $duraiton = $data["duration"];
@@ -43,27 +48,31 @@
             
             $id = $db->insert_id;
 
-            foreach($userAtt as $user){
-                $querysub ="INSERT INTO `calluserattendees` (`callid`, `useremail`) VALUES ('$id', '$user')";
-                $res = mysqli_query($db, $querysub); 
-                if(!$res){
-                    $error="Error creating user attendee...".$db->error;
-                    $arr = array(
-                        "error" => $error
-                    );
-                    echo json_encode($arr);
+            if($userAtt){
+                foreach($userAtt as $user){
+                    $querysub ="INSERT INTO `calluserattendees` (`callid`, `useremail`) VALUES ('$id', '$user')";
+                    $res = mysqli_query($db, $querysub); 
+                    if(!$res){
+                        $error="Error creating user attendee...".$db->error;
+                        $arr = array(
+                            "error" => $error
+                        );
+                        echo json_encode($arr);
+                    }
                 }
             }
 
-            foreach($contAtt as $user){
-                $querysub ="INSERT INTO `callcontactattendees` (`callid`, `contemail`) VALUES ('$id', '$user')";
-                $res = mysqli_query($db, $querysub); 
-                if(!$res){
-                    $error="Error creating contact attendee...".$db->error;
-                    $arr = array(
-                        "error" => $error
-                    );
-                    echo json_encode($arr);
+            if($contAtt){
+                foreach($contAtt as $user){
+                    $querysub ="INSERT INTO `callcontactattendees` (`callid`, `contemail`) VALUES ('$id', '$user')";
+                    $res = mysqli_query($db, $querysub); 
+                    if(!$res){
+                        $error="Error creating contact attendee...".$db->error;
+                        $arr = array(
+                            "error" => $error
+                        );
+                        echo json_encode($arr);
+                    }
                 }
             }
 
@@ -107,14 +116,37 @@
             
             echo json_encode($arr);             
         }
-        else if($name == "getaccount"){
-            $email = $_POST['email'];
-            $query = "SELECT * FROM accounttable A,usertable U where A.accountemail='$email' and A.assigneduseremail=U.useremail ";
-            $results = mysqli_query($db, $query);
+        else if($name == "getcall"){
+            $id = $_POST['email'];
+            $query = "SELECT * FROM calltable A,usertable U,parenttable P where A.id='$id' and A.assigneduser=U.useremail and A.callparentname=P.parenttablename";
+            $results = mysqli_query($db, $query);           
+
             if($results){
-                $data = mysqli_fetch_row($results);     
+                $data = mysqli_fetch_row($results);
+                
+                $query2 = "SELECT * FROM `callcontactattendees` C , `contacttable` CC where C.callid='$id' and C.contemail=CC.contemail";
+                $query3 = "SELECT * FROM `calluserattendees` C , `usertable` CC where C.callid='$id' and C.useremail=CC.useremail";
+                
+                $res1 =  mysqli_query($db, $query2);  
+                $res2 =  mysqli_query($db, $query3);  
+
+                $res1 = mysqli_fetch_all($res1);
+                $res2 = mysqli_fetch_all($res2);
+
+
+                $tablename = $data[20];
+                $tableid = $data[21];
+                $email = $data[4];
+                $query1 = "Select * from $tablename T where T.$tableid = '$email'";
+                $res3 = mysqli_query($db, $query1);
+                $res3 = mysqli_fetch_row($res3);    
+
+                
                 $arr = array(
-                     "userInfo" => $data
+                     "userInfo" => $data,
+                     "userAtt" => $res2,
+                     "contAtt" => $res1,
+                     "parent" => $res3
                 );
                 echo json_encode($arr);
             }

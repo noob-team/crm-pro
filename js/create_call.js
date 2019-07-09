@@ -72,7 +72,7 @@ $(document).ready(function () {
                 let template2 = ` <div class="row">
                                 <div class="input-field col s12 m6">    
                                 <label>
-                                    <input type="checkbox" id="cont@${result.contacts[i][0]}" class="userCheckBox filled-in" value="${result.contacts[i][1]}" />
+                                    <input type="checkbox" id="cont@${result.contacts[i][0]}" class="contactCheckBox filled-in" value="${result.contacts[i][1]}" />
                                     <span>${result.contacts[i][1]}</span>
                                 </label></div></div>`;
 
@@ -135,19 +135,19 @@ $(document).ready(function () {
                                         </div>
                                         <div class="input-field col s12 m6">
                                             <input type="text" id="datestart" class="datepicker">
-                                            <label for="datestart">Date Start</label>
+                                            <label for="datestart">Start Date</label>
                                         </div>  
                                         <div class="input-field col s12 m6">
                                             <input type="text" id="timestart" class="timepicker">
-                                            <label for="datestart">Time Start</label>
+                                            <label for="datestart">Start Time</label>
                                         </div>  
                                         <div class="input-field col s12 m6">
                                             <input type="text" id="dateend" class="datepicker">
-                                            <label for="dateend">Date End</label>
+                                            <label for="dateend">End Date</label>
                                         </div>  
                                         <div class="input-field col s12 m6">
                                             <input type="text" id="timeend" class="timepicker">
-                                            <label for="timeend">Time End</label>
+                                            <label for="timeend">End Time</label>
                                         </div>  
 
                                         <div class="input-field col s12 m6">
@@ -257,6 +257,43 @@ $(document).ready(function () {
 
             });
 
+            document.getElementById('contactid').addEventListener('change', (e) => {
+                var ele = document.getElementById('contactid');
+                var objs = document.getElementsByClassName("contactCheckBox");
+                for (var i = 0; i < objs.length; i++) {
+                    objs[i].checked = "";
+                    objs[i].disabled = "";
+                }
+                document.getElementById('cont@' + ele.value).disabled = "disabled";
+            });
+
+            document.getElementById('accountid').addEventListener('change', (e) => {
+                var objs = document.getElementsByClassName("contactCheckBox");
+                for (var i = 0; i < objs.length; i++) {
+                    objs[i].checked = "";
+                    objs[i].disabled = "";
+                }
+            });
+
+            document.getElementById('parentid').addEventListener('change', (e) => {
+                var objs = document.getElementsByClassName("contactCheckBox");
+                for (var i = 0; i < objs.length; i++) {
+                    objs[i].checked = "";
+                    objs[i].disabled = "";
+                }
+
+                if (document.getElementById('parentid').value.includes("contact")) {
+                    var ele = document.getElementById('contactid');
+                    var objs = document.getElementsByClassName("contactCheckBox");
+                    for (var i = 0; i < objs.length; i++) {
+                        objs[i].checked = "";
+                        objs[i].disabled = "";
+                    }
+                    if (document.getElementById('cont@' + ele.value))
+                        document.getElementById('cont@' + ele.value).disabled = "disabled";
+                }
+
+            });
 
             $(function () {
                 $("#modal-btn").on('click', function () {
@@ -307,7 +344,6 @@ $(document).ready(function () {
                         "contAtt": contAtendeList
 
                     };
-
                     $.ajax({
                         type: "POST",
                         url: SERVER_PATH + "call.php",

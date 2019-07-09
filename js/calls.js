@@ -149,7 +149,6 @@ $(document).ready(function () {
         else {
             var parent = result.parent;
             var result = result.data;
-            console.log(parent, result);
             var tableRows = "";
             for (var i = 0; i < result.length; i++) {
                 var email = result[i][0];

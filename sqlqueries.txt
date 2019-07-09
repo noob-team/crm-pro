@@ -98,3 +98,43 @@ ALTER TABLE `contacttable` ADD CONSTRAINT `conttwo` FOREIGN KEY (`constaccountem
 
 
 INSERT INTO `contacttable` (`contemail`, `contname`, `contphone`, `contstreet`, `contcity`, `contstate`, `constpostal`, `constcountry`, `constdesc`, `constaccountemail`, `constassigneduser`) VALUES ('email@email.com', 'name', '123456789', 'street', 'city', 'state', '12', 'country', 'dewc', 'asdas@gmail.com', 'rahuldshetty@gmail.com');
+
+
+_________________________________________________________________________________________
+//NEEDED BOTH BELOW
+PARENT_TABLE
+
+CREATE TABLE `crm`.`parenttable` ( `name` VARCHAR(50) NOT NULL ,`parenttablename` VARCHAR(50) NOT NULL , `parenttableid` VARCHAR(50) NOT NULL ) ENGINE = InnoDB;
+
+ALTER TABLE `parenttable` ADD PRIMARY KEY( `parenttablename`);
+
+
+INSERT INTO `parenttable` (`name`, `parenttablename`, `parenttableid`) VALUES ('Acconut', 'accounttable', 'accountemail')
+INSERT INTO `parenttable` (`name`, `parenttablename`, `parenttableid`) VALUES ('Contact', 'contacttable', 'contemail');
+
+
+_________________________________________________________________________________________
+
+CALL TABLE
+
+CREATE TABLE `crm`.`calltable` ( `id` INT NOT NULL , `callname` VARCHAR(250) NOT NULL , `calldesc` VARCHAR(1000) NOT NULL , `callparentname` VARCHAR(50) NOT NULL , `callparentid` VARCHAR(250) NOT NULL , `callstatus` VARCHAR(50) NOT NULL , `calldirection` VARCHAR(50) NOT NULL , `callstartdate` DATE NOT NULL , `callstarttime` TIME NOT NULL , `callenddate` DATE NOT NULL , `callendtime` TIME NOT NULL , `callduration` BIGINT NOT NULL , `callemailstatus` BIGINT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `calltable` ADD `assigneduser` VARCHAR(50) NOT NULL AFTER `callemailstatus`;
+ALTER TABLE `calltable` ADD CONSTRAINT `userassignedcallfk` FOREIGN KEY (`assigneduser`) REFERENCES `usertable`(`useremail`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `calltable` ADD FOREIGN KEY (`callparentname`) REFERENCES `parenttable`(`parenttablename`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+
+
+
+CREATE TABLE `crm`.`calluserattendees` ( `callid` INT NOT NULL , `useremail` VARCHAR(50) NOT NULL ) ENGINE = InnoDB;
+
+ALTER TABLE `calluserattendees` ADD FOREIGN KEY (`callid`) REFERENCES `calltable`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE; ALTER TABLE `calluserattendees` ADD FOREIGN KEY (`useremail`) REFERENCES `usertable`(`useremail`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `calluserattendees` ADD PRIMARY KEY( `callid`, `useremail`);
+
+
+CREATE TABLE `crm`.`callcontactattendees` ( `callid` INT NOT NULL , `contemail` VARCHAR(50) NOT NULL ) ENGINE = InnoDB;
+ALTER TABLE `callcontactattendees` ADD PRIMARY KEY( `callid`, `contemail`);
+ALTER TABLE `callcontactattendees` ADD FOREIGN KEY (`callid`) REFERENCES `calltable`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE; ALTER TABLE `callcontactattendees` ADD FOREIGN KEY (`contemail`) REFERENCES `contacttable`(`contemail`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+
+

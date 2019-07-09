@@ -13,18 +13,25 @@
         if($name == "getaccountanduser"){
             $query1 = "SELECT * FROM accounttable ;";
             $query2 = "SELECT * FROM usertable ;";
-            
+            $query3 = "SELECT * FROM parenttable ;";
+            $query4 = "SELECT * FROM contacttable ;";
+
             $res1 = mysqli_query($db,$query1);
             $res2 = mysqli_query($db,$query2);
-
+            $res3 = mysqli_query($db,$query3);
+            $res4 = mysqli_query($db,$query4);
 
             $res1 = mysqli_fetch_all($res1);
             $res2 = mysqli_fetch_all($res2);      
+            $res3 = mysqli_fetch_all($res3);      
+            $res4 = mysqli_fetch_all($res4);      
 
 
             $arr = array(
                 "accounts" => $res1,
-                "users" => $res2
+                "users" => $res2,
+                "parents" => $res3,
+                "contacts" => $res4
             );
             echo json_encode($arr);
         }

@@ -77,6 +77,7 @@ TASK_TABLE
 CREATE TABLE `crm`.`tasktable` ( `taskid` INT NOT NULL AUTO_INCREMENT , `taskname` VARCHAR(250) NOT NULL , `taskparent` VARCHAR(20) NOT NULL , `tasktarget` VARCHAR(100) NOT NULL , `taskstartdate` DATE NOT NULL , `taskstarttime` TIME NOT NULL , `taskenddate` DATE NOT NULL , `taskendtime` TIME NOT NULL , `taskstatus` VARCHAR(50) NOT NULL , `taskpriority` VARCHAR(50) NOT NULL , `taskdescription` VARCHAR(350) NOT NULL , `taskuseremail` VARCHAR(50) NOT NULL , PRIMARY KEY (`taskid`)) ENGINE = InnoDB;
 
 ALTER TABLE `tasktable` ADD CONSTRAINT `taskuserfk` FOREIGN KEY (`taskuseremail`) REFERENCES `usertable`(`useremail`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tasktable` ADD FOREIGN KEY (`taskparent`) REFERENCES `parenttable`(`parenttablename`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 

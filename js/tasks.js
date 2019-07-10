@@ -1,7 +1,7 @@
 
 // --- set accounts link active ---
 document.querySelector("#sidebar")
-    .getElementsByClassName("fa-phone")[0]
+    .getElementsByClassName("fa-tasks")[0]
     .parentElement.parentElement
     .classList.add("active-link");
 
@@ -80,8 +80,8 @@ $("#modalButtonYes").click(function (e) {
     var email = e.currentTarget.name;
     $.ajax({
         type: "POST",
-        url: SERVER_PATH + "call.php",
-        data: { "name": "deleteCall", "email": email }
+        url: SERVER_PATH + "task.php",
+        data: { "name": "deleteTask", "email": email }
     }).done(function (data) {
         var result = $.parseJSON(data);
         document.getElementById('modelParagraph').innerText = "";
@@ -90,7 +90,7 @@ $("#modalButtonYes").click(function (e) {
             M.toast({ html: "Error deleting " });
         }
         else {
-            window.open('calls.html', '_self');
+            window.open('tasks.html', '_self');
         }
     });
 });
@@ -110,10 +110,10 @@ $("#delete-selected").click(function (e) {
         }
     }
     if (emails.length == 0) {
-        M.toast({ html: "Please select calls to delete.." });
+        M.toast({ html: "Please select tasks to delete.." });
     } else {
         //ask for confirmation
-        document.getElementById('modelParagraph2').innerText = "Are you sure you want to delete call " + names.toString() + "?";
+        document.getElementById('modelParagraph2').innerText = "Are you sure you want to delete tasks " + names.toString() + "?";
         document.getElementById('modelParagraph2').name = JSON.stringify(emails);
         console.log(document.getElementById('modelParagraph2'));
         $('#modal2').modal('open');
@@ -126,15 +126,15 @@ $("#modalButtonYes2").click(function (e) {
     document.getElementById('modelParagraph2').name = "";
     $.ajax({
         type: "POST",
-        url: SERVER_PATH + "call.php",
-        data: { "name": "deleteMultipleCalls", "email": emails }
+        url: SERVER_PATH + "task.php",
+        data: { "name": "deleteMultipleTasks", "email": emails }
     }).done(function (data) {
         var result = $.parseJSON(data);
         if (result.error) {
-            M.toast({ html: "Error deleting calls " });
+            M.toast({ html: "Error deleting tasks " });
         }
         else {
-            window.open('calls.html', '_self');
+            window.open('tasks.html', '_self');
         }
     });
 });
@@ -144,8 +144,8 @@ $(document).ready(function () {
     $('.modal').modal();
     $.ajax({
         type: "POST",
-        url: SERVER_PATH + "call.php",
-        data: { name: "getallcalls" }
+        url: SERVER_PATH + "task.php",
+        data: { name: "getalltasks" }
     }).done(function (data) {
         var result = $.parseJSON(data);
         if (result.error) {
@@ -159,19 +159,11 @@ $(document).ready(function () {
                 var email = result[i][0];
                 var id = result[i][0];
                 var name = result[i][1];
-                var status = result[i][5];
-                var date = result[i][7];
+                var status = result[i][8];
+                var date = result[i][6];
 
+                var priority = result[i][9];
 
-                var parentitem = parent[i][1];
-                var parentemail = parent[i][0];
-                var parentTemplate = ``;
-                if (result[i][14] == 'Account') {
-                    parentTemplate = ` <td class="searchItems website_td"><a class="grey-text text-darken-4" href="showaccount.html?email=${parentemail}">${parentitem}</a></td>`;
-                }
-                else if (result[i][14] == "Contact") {
-                    parentTemplate = ` <td class="searchItems website_td"><a class="grey-text text-darken-4" href="showcontact.html?email=${parentemail}">${parentitem}</a></td>`;
-                }
                 var template = `
                 <tr>
                     <td>
@@ -180,15 +172,15 @@ $(document).ready(function () {
                             <span></span>
                         </label>
                     </td>
-                    <td class="searchItems name_td" value="${id}"><a class="grey-text text-darken-4"  href="showcall.html?email=${id}">${name}</a></td>
-                    ${parentTemplate}
+                    <td class="searchItems name_td" value="${id}"><a class="grey-text text-darken-4"  href="showtask.html?email=${id}">${name}</a></td>
                     <td class="searchItems status_td">${status}</td>
+                    <td class="searchItems priority_td">${priority}</td>
                     <td class="searchItems date">${date}</td>
-                    <td class="searchItems website_td"><a class="grey-text text-darken-4" href="showuser.html?email=${result[i][13]}">${result[i][18]}</a></td>
+                    <td class="searchItems website_td"><a class="grey-text text-darken-4" href="showuser.html?email=${result[i][15]}">${result[i][16]}</a></td>
                     <td>
-                        <a href="showcall.html?email=${email}" class="tooltipped  view" data-position="bottom"
+                        <a href="showtask.html?email=${email}" class="tooltipped  view" data-position="bottom"
                             data-tooltip="view"><i class="fa fa-eye"></i></a>
-                        <a href="editcall.html?email=${email}" class="tooltipped edit" data-position="bottom"
+                        <a href="edittask.html?email=${email}" class="tooltipped edit" data-position="bottom"
                             data-tooltip="edit"><i class="fa fa-edit"></i></a>
                         <button data-target="modal" class="btn-flat singleDelete modal-trigger waves-effect waves-light" name='${email}'><i
                                 class="fa fa-trash">
@@ -208,7 +200,7 @@ $(document).ready(function () {
                 var child = e.currentTarget.children[1].children[0].children;
                 var name = child[0].value;
                 var id = child[1].value;
-                document.getElementById('modelParagraph').innerText = "Are you sure you want to delete call " + name + " ?";
+                document.getElementById('modelParagraph').innerText = "Are you sure you want to delete task " + name + " ?";
                 document.getElementById('modalButtonYes').name = id;
             });
         }

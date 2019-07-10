@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2019 at 10:13 PM
+-- Generation Time: Jul 10, 2019 at 05:09 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -247,6 +247,13 @@ CREATE TABLE `tasktable` (
   `taskuseremail` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tasktable`
+--
+
+INSERT INTO `tasktable` (`taskid`, `taskname`, `taskparent`, `tasktarget`, `taskstartdate`, `taskstarttime`, `taskenddate`, `taskendtime`, `taskstatus`, `taskpriority`, `taskdescription`, `taskuseremail`) VALUES
+(7, 'task1', 'accounttable', 'dcvcbcv@gmail.comn', '2019-07-23', '17:38:00', '2019-07-21', '17:38:00', 'Started', 'Normal', 'dslfmnk', 'surabh@gmail.com');
+
 -- --------------------------------------------------------
 
 --
@@ -392,7 +399,8 @@ ALTER TABLE `roletable`
 --
 ALTER TABLE `tasktable`
   ADD PRIMARY KEY (`taskid`),
-  ADD KEY `taskuserfk` (`taskuseremail`);
+  ADD KEY `taskuserfk` (`taskuseremail`),
+  ADD KEY `taskparent` (`taskparent`);
 
 --
 -- Indexes for table `teamtable`
@@ -446,7 +454,7 @@ ALTER TABLE `roletable`
 -- AUTO_INCREMENT for table `tasktable`
 --
 ALTER TABLE `tasktable`
-  MODIFY `taskid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `taskid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `teamtable`
@@ -502,6 +510,7 @@ ALTER TABLE `roletable`
 -- Constraints for table `tasktable`
 --
 ALTER TABLE `tasktable`
+  ADD CONSTRAINT `tasktable_ibfk_1` FOREIGN KEY (`taskparent`) REFERENCES `parenttable` (`parenttablename`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `taskuserfk` FOREIGN KEY (`taskuseremail`) REFERENCES `usertable` (`useremail`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

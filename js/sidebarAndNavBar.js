@@ -39,7 +39,7 @@ document.body.innerHTML = `
         <li><a href="accounts.html"><i class="fa fa-user-circle"></i>ACCOUNTS</a></li>
         <li><a href="contacts.html"><i class="fa fa-address-book"></i>CONTACTS</a></li>
         <li><a href=""><i class="fa fa-envelope"></i>EMAILS</a></li>
-        <li><a href=""><i class="fa fa-calendar-week"></i>CALENDER</a></li>
+        <li><a href="calendar.html"><i class="fa fa-calendar-week"></i>CALENDER</a></li>
         <li><a href="calls.html"><i class="fa fa-phone"></i>CALLS</a></li>
         <li><a href="tasks.html"><i class="fa fa-tasks"></i>TASKS</a></li>
         <li><a href="users.html"><i class="fa fa-user"></i>USERS</a></li>
@@ -54,7 +54,7 @@ document.body.innerHTML = `
             <li><a href="accounts.html"><i class="fa fa-user-circle"></i>ACCOUNTS</a></li>
             <li><a href="contacts.html"><i class="fa fa-address-book"></i>CONTACTS</a></li>
             <li><a href=""><i class="fa fa-envelope"></i>EMAILS</a></li>
-            <li><a href=""><i class="fa fa-calendar-week"></i>CALENDER</a></li>
+            <li><a href="calendar.html"><i class="fa fa-calendar-week"></i>CALENDER</a></li>
             <li><a href="calls.html"><i class="fa fa-phone"></i>CALLS</a></li>
             <li><a href="tasks.html"><i class="fa fa-tasks"></i>TASKS</a></li>
             <li><a href="users.html"><i class="fa fa-user"></i>USERS</a></li>
